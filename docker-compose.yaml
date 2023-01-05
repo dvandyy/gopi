@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: gopi-dev
+    image: gopi-dev
+    build:
+      context: .
+      target: development
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    ports:
+      - 4000:4000
+
+  db:
+    image: postgres:14.1-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    restart: always
+    container_name: gopi-db
+    ports:
+      - 5432:5432
+    volumes:
+      - gopi-dev-data:/var/lib/postgresql/data
+
+volumes:
+  gopi-dev-data:
