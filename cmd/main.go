@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/bodatomas/gopi/api/v1/router"
+	"github.com/bodatomas/gopi/env"
 )
 
 func main() {
@@ -18,10 +19,9 @@ func main() {
 	router := router.InitRouter(l)
 
   // Server configuration
-  // TODO: implement env variables
 	server := &http.Server{
 		Handler:      router,
-		Addr:         ":4000",
+    Addr:         env.GetEnvValue("ADDRESS"),
 		IdleTimeout:  120 * time.Second,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
