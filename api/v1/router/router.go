@@ -15,6 +15,7 @@ func InitRouter(l *log.Logger) *mux.Router {
   // Get subrouter
 	getRouter := router.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/", handlers.NewHello(l).GetHello)
+	getRouter.HandleFunc("/board", handlers.NewBoard(l).GetBoard)
 
   // Post subrouter
 	// postRouter := router.Methods(http.MethodPost).Subrouter()

@@ -27,7 +27,7 @@ func main() {
 		ReadTimeout:  15 * time.Second,
 	}
 
-  // Concurent server run and listen
+  // Concurrent server run and listen
 	go func() {
 		l.Fatal(server.ListenAndServe())
 	}()
