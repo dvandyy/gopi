@@ -8,16 +8,16 @@ import (
 )
 
 type Hello struct {
-	l *log.Logger
+	logger *log.Logger
 }
 
-func NewHello(l *log.Logger) *Hello {
-	return &Hello{l}
+func NewHello(logger *log.Logger) *Hello {
+	return &Hello{logger}
 }
 
-func (h *Hello) GetHello(context echo.Context) error {
+func (_ *Hello) GetHello(context echo.Context) error {
 	data := map[string]string{
 		"message": "Hello world!",
 	}
-  return context.JSON(http.StatusOK, data)
+  return context.JSONPretty(http.StatusOK, data, " ")
 }
