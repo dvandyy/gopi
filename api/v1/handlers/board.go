@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/bodatomas/gopi/api/v1/models"
+	"github.com/labstack/echo/v4"
 )
 
 type Board struct {
@@ -15,10 +16,7 @@ func NewBoard(l *log.Logger) *Board {
 	return &Board{l}
 }
 
-func (b *Board) GetBoard(rw http.ResponseWriter, r *http.Request) {
+func (b *Board) GetBoard(context echo.Context) error {
 	data := models.GetBoard()
-	err := data.ToJSON(rw)
-	if err != nil {
-		panic(err)
-	}
+  return context.JSON(http.StatusOK, data)
 }

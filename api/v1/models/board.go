@@ -1,8 +1,6 @@
 package models
 
 import (
-	"encoding/json"
-	"io"
 	"time"
 )
 
@@ -11,11 +9,6 @@ type Board struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	CreatedOn   string `json:"createdOn"`
-}
-
-func (b *Board) ToJSON(w io.Writer) error {
-	e := json.NewEncoder(w)
-	return e.Encode(b)
 }
 
 func GetBoard() *Board {

@@ -11,4 +11,4 @@ RUN go install github.com/cespare/reflex@latest
 # Expose port
 EXPOSE 4001
 # Start app
-CMD reflex -g '*.go' go run ./cmd/main.go --start-service
+CMD reflex -r '\.go$$' go run ./cmd/main.go --start-service
