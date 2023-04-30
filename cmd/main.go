@@ -9,22 +9,24 @@ import (
 	"time"
 
 	"github.com/bodatomas/gopi/api/v1/router"
-	"github.com/bodatomas/gopi/env"
+	"github.com/bodatomas/gopi/config"
 )
 
 func main() {
 	// Logger for one place logging
-	logger := log.New(os.Stdout, "product-api", log.LstdFlags)
+	logger := log.New(os.Stdout, "gopi-api", log.LstdFlags)
+	// Config
+	cfg := config.New(logger)
 	// Main router Echo
 	router := router.InitRouter(logger)
 
 	// Server configuration
 	server := &http.Server{
 		Handler:      router,
-		Addr:         env.GetEnvValue("ADDRESS"),
-		IdleTimeout:  120 * time.Second,
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		Addr:         cfg.Address,
+		IdleTimeout:  cfg.IdleTimeout * time.Second,
+		WriteTimeout: cfg.WriteTimeout * time.Second,
+		ReadTimeout:  cfg.ReadTimeout * time.Second,
 	}
 
 	// Concurrent server run and listen
