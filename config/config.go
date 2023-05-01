@@ -22,11 +22,11 @@ type Config struct {
 	DB_Name     string `env:"DB_NAME"`
 }
 
-func New(logger *log.Logger) *Config {
-	cfg := &Config{}
-	err := env.Parse(cfg) // Parsing env values
+var Cfg = &Config{}
+
+func New(logger *log.Logger) {
+	err := env.Parse(Cfg) // Parsing env values
 	if err != nil {
 		logger.Printf("%+v\n", err)
 	}
-	return cfg
 }

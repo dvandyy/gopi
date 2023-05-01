@@ -16,17 +16,17 @@ func main() {
 	// Logger for one place logging
 	logger := log.New(os.Stdout, "gopi-api", log.LstdFlags)
 	// Config
-	cfg := config.New(logger)
+	config.New(logger)
 	// Main router Echo
 	router := router.InitRouter(logger)
 
 	// Server configuration
 	server := &http.Server{
 		Handler:      router,
-		Addr:         cfg.Address,
-		IdleTimeout:  cfg.IdleTimeout * time.Second,
-		WriteTimeout: cfg.WriteTimeout * time.Second,
-		ReadTimeout:  cfg.ReadTimeout * time.Second,
+		Addr:         config.Cfg.Address,
+		IdleTimeout:  config.Cfg.IdleTimeout * time.Second,
+		WriteTimeout: config.Cfg.WriteTimeout * time.Second,
+		ReadTimeout:  config.Cfg.ReadTimeout * time.Second,
 	}
 
 	// Concurrent server run and listen
