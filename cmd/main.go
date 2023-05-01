@@ -9,38 +9,40 @@ import (
 	"time"
 
 	"github.com/bodatomas/gopi/api/v1/router"
-	"github.com/bodatomas/gopi/env"
+	"github.com/bodatomas/gopi/config"
 )
 
 func main() {
-  // Logger for one place logging
-	l := log.New(os.Stdout, "product-api", log.LstdFlags)
-  // Main router Mux
-	router := router.InitRouter(l)
+	// Logger for one place logging
+	logger := log.New(os.Stdout, "gopi-api", log.LstdFlags)
+	// Config
+	config.New(logger)
+	// Main router Echo
+	router := router.InitRouter(logger)
 
-  // Server configuration
+	// Server configuration
 	server := &http.Server{
 		Handler:      router,
-    Addr:         env.GetEnvValue("ADDRESS"),
-		IdleTimeout:  120 * time.Second,
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		Addr:         config.Cfg.Address,
+		IdleTimeout:  config.Cfg.IdleTimeout * time.Second,
+		WriteTimeout: config.Cfg.WriteTimeout * time.Second,
+		ReadTimeout:  config.Cfg.ReadTimeout * time.Second,
 	}
 
-  // Concurrent server run and listen
+	// Concurrent server run and listen
 	go func() {
-		l.Fatal(server.ListenAndServe())
+		logger.Fatal(server.ListenAndServe())
 	}()
-  l.Println("Server is running!")
+	logger.Println("Server is running!")
 
 	sigChan := make(chan os.Signal)
 	signal.Notify(sigChan, os.Interrupt)
 	signal.Notify(sigChan, os.Kill)
 
 	sig := <-sigChan
-	l.Println("Recieved terminate, graceful shutdown", sig)
+	logger.Println("Recieved terminate, graceful shutdown", sig)
 
-	timeContext, cancel := context.WithTimeout(context.Background(), 30* time.Second)
+	timeContext, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	server.Shutdown(timeContext)
 }

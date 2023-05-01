@@ -2,30 +2,24 @@ package router
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/bodatomas/gopi/api/v1/handlers"
-	"github.com/gorilla/mux"
+	"github.com/labstack/echo/v4"
 )
 
-func InitRouter(l *log.Logger) *mux.Router {
+func InitRouter(logger *log.Logger) *echo.Echo {
 
-	router := mux.NewRouter()
+	router := echo.New()
 
-  // Get subrouter
-	getRouter := router.Methods(http.MethodGet).Subrouter()
-	getRouter.HandleFunc("/", handlers.NewHello(l).GetHello)
-	getRouter.HandleFunc("/board", handlers.NewBoard(l).GetBoard)
+  setupGetRequests(router, logger);
 
-  // Post subrouter
-	// postRouter := router.Methods(http.MethodPost).Subrouter()
-
-  // Put subrouter
-	// putRouter := router.Methods(http.MethodPut).Subrouter()
-
-  // Delete subrouter
-	// deleteRouter := router.Methods(http.MethodDelete).Subrouter()
-
-  return router
+	return router
 }
 
+func setupGetRequests(router *echo.Echo, logger *log.Logger) {
+
+  // GET routes
+  router.GET("/", handlers.NewHello(logger).GetHello)
+  router.GET("/board", handlers.NewBoard(logger).GetBoard)
+
+}

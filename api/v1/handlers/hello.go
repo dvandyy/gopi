@@ -1,25 +1,23 @@
 package handlers
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 type Hello struct {
-	l *log.Logger
+	logger *log.Logger
 }
 
-func NewHello(l *log.Logger) *Hello {
-	return &Hello{l}
+func NewHello(logger *log.Logger) *Hello {
+	return &Hello{logger}
 }
 
-func (h *Hello) GetHello(rw http.ResponseWriter, r *http.Request) {
+func (_ *Hello) GetHello(context echo.Context) error {
 	data := map[string]string{
 		"message": "Hello world!",
 	}
-	err := json.NewEncoder(rw).Encode(data)
-	if err != nil {
-		panic(err)
-	}
+  return context.JSONPretty(http.StatusOK, data, " ")
 }
