@@ -8,7 +8,7 @@ import (
 
 type Config struct {
 	Environment string  `env:"HOME"`
-	Version     float32 `env:"VERSION"`
+	Version     string  `env:"VERSION"`
 
 	Address      string        `env:"ADDRESS"`
 	IdleTimeout  time.Duration `env:"IDLE_TIMEOUT"`
