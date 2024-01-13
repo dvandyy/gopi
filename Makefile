@@ -1,15 +1,15 @@
 docker-dev = docker-compose -f docker-compose-dev.yaml
 
 #Start docker
-run dev:
+run:
 	$(docker-dev) up $(args)
 
 #Stop docker
-stop dev:
+stop:
 	$(docker-dev) down
 
 #Clean rebuild
-rebuild dev:
+rebuild:
 	$(docker-dev) down --volumes && \
 	$(docker-dev) rm --all && \
 	$(docker-dev) pull --ignore-buildable && \
@@ -17,5 +17,5 @@ rebuild dev:
 	$(docker-dev) up --force-recreate
 
 #Exec into main app
-exec dev:
+exec:
 	docker exec -it gopi-dev sh
