@@ -6,29 +6,30 @@ services:
     image: gopi-dev
     build:
       context: .
-      target: development
+      target: ${ENVIRONMENT}
     depends_on:
       - db
     volumes:
       - .:/app
     ports:
-      - 4000:4000
+      - ${ADDRESS}:${ADDRESS}
     env_file: 
       - .env
 
   db:
     image: postgres:14.1-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-    restart: always
-    container_name: gopi-db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    restart: unless-stopped
+    container_name: ${DB_HOST}
     ports:
-      - 5432:5432
+      - ${DB_PORT}:${DB_PORT}
     volumes:
-      - gopi-dev-data:/var/lib/postgresql/data
+      - dev-data:/var/lib/postgresql/data
     env_file: 
       - .env
 
 volumes:
-  gopi-dev-data:
+  dev-data:

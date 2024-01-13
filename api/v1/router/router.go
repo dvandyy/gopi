@@ -23,6 +23,6 @@ func setupGetRequests(router *echo.Echo, logger *log.Logger) {
 
 	// GET routes
 	router.GET(basePath+"/", handlers.NewHello(logger).GetHello)
-	router.GET(basePath+"/board", handlers.NewBoard(logger).GetBoard)
+	router.GET(basePath+"/board/:id", handlers.NewBoard(logger).GetBoardByID)
 
 }

@@ -7,9 +7,11 @@ import (
 	"os"
 	"os/signal"
 	"time"
+	"fmt"
 
 	"github.com/bodatomas/gopi/api/v1/router"
 	"github.com/bodatomas/gopi/config"
+	"github.com/bodatomas/gopi/database"
 )
 
 func main() {
@@ -18,12 +20,14 @@ func main() {
 	// Config
 	config.New(logger)
 	// Main router Echo
-	router := router.InitRouter(logger)
+	mainRouter := router.InitRouter(logger)
+	// Database
+	database.CreateDatabase()
 
 	// Server configuration
 	server := &http.Server{
-		Handler:      router,
-		Addr:         config.Cfg.Address,
+		Handler:      mainRouter,
+		Addr:         fmt.Sprintf(":%s", config.Cfg.Address ),
 		IdleTimeout:  config.Cfg.IdleTimeout * time.Second,
 		WriteTimeout: config.Cfg.WriteTimeout * time.Second,
 		ReadTimeout:  config.Cfg.ReadTimeout * time.Second,
@@ -40,9 +44,13 @@ func main() {
 	signal.Notify(sigChan, os.Kill)
 
 	sig := <-sigChan
-	logger.Println("Recieved terminate, graceful shutdown", sig)
+	logger.Println("Received terminate, graceful shutdown", sig)
 
 	timeContext, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	server.Shutdown(timeContext)
+
+	err := server.Shutdown(timeContext)
+	if err != nil {
+		return
+	}
 }
