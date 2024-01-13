@@ -1,14 +1,15 @@
 package config
 
 import (
-	"github.com/caarlos0/env/v8"
 	"log"
 	"time"
+
+	"github.com/caarlos0/env/v8"
 )
 
 type Config struct {
-	Environment string  `env:"HOME"`
-	Version     float32 `env:"VERSION"`
+	Environment string `env:"HOME"`
+	Version     string `env:"VERSION"`
 
 	Address      string        `env:"ADDRESS"`
 	IdleTimeout  time.Duration `env:"IDLE_TIMEOUT"`

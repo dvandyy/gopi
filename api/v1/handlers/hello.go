@@ -19,5 +19,5 @@ func (_ *Hello) GetHello(context echo.Context) error {
 	data := map[string]string{
 		"message": "Hello world!",
 	}
-  return context.JSONPretty(http.StatusOK, data, " ")
+	return context.JSONPretty(http.StatusOK, data, " ")
 }

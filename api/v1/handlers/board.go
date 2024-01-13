@@ -1,31 +1,35 @@
 package handlers
 
 import (
-	"log"
-	"net/http"
-	"time"
-
 	"github.com/bodatomas/gopi/api/v1/models"
 	"github.com/labstack/echo/v4"
+	"log"
+	"net/http"
+	"strconv"
 )
 
 type Board struct {
 	logger *log.Logger
 }
 
+// NewBoard Constructor
 func NewBoard(logger *log.Logger) *Board {
 	return &Board{logger}
 }
 
-func (_ *Board) GetBoard(context echo.Context) error {
-	data := board
+// GetBoardByID Return board with given id
+func (_ *Board) GetBoardByID(context echo.Context) error {
+	// Get id param from url
+	id := context.Param("id")
+	// Change id from string to int
+	intID, err := strconv.Atoi(id)
+	if err != nil {
+		panic(err)
+	}
+	// Get board from database
+	data, err := models.GetBoardByID(intID)
+	if err != nil {
+		return context.NoContent(http.StatusNotFound)
+	}
 	return context.JSONPretty(http.StatusOK, data, " ")
-}
-
-// Dummy data
-var board = &models.Board{
-	ID:          1,
-	Name:        "Test Board",
-	Description: "Test",
-	CreatedOn:   time.Now().UTC().String(),
 }
