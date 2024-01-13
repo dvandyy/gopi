@@ -6,6 +6,7 @@ services:
     image: gopi-dev
     build:
       context: .
+      dockerfile: Dockerfile-dev
       target: ${ENVIRONMENT}
     depends_on:
       - db
