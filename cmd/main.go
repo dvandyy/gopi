@@ -1,56 +1,53 @@
 package main
 
 import (
-	"context"
+	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
-	"time"
-	"fmt"
+	"syscall"
 
-	"github.com/bodatomas/gopi/api/v1/router"
+	"github.com/bodatomas/gopi/api/v1/app"
 	"github.com/bodatomas/gopi/config"
 	"github.com/bodatomas/gopi/database"
 )
 
 func main() {
-	// Logger for one place logging
+	// Logger for one place logging.
 	logger := log.New(os.Stdout, "gopi-api", log.LstdFlags)
-	// Config
+
+	// Creating config.
 	config.New(logger)
-	// Main router Echo
-	mainRouter := router.InitRouter(logger)
-	// Database
+
+	// Creating main application.
+	fiber := app.InitFiberApp(logger)
+
+	// Server setup - config properties are in env file.
+	fiber.SetupServer(logger)
+
+	// Creating database.
 	database.CreateDatabase()
 
-	// Server configuration
-	server := &http.Server{
-		Handler:      mainRouter,
-		Addr:         fmt.Sprintf(":%s", config.Cfg.Address ),
-		IdleTimeout:  config.Cfg.IdleTimeout * time.Second,
-		WriteTimeout: config.Cfg.WriteTimeout * time.Second,
-		ReadTimeout:  config.Cfg.ReadTimeout * time.Second,
-	}
+	// PORT
+	port := fmt.Sprintf(":%s", config.Cfg.Address)
 
 	// Concurrent server run and listen
 	go func() {
-		logger.Fatal(server.ListenAndServe())
+		logger.Fatal(fiber.App.Listen(port))
 	}()
 	logger.Println("Server is running!")
 
+	// Graceful shutdown
 	sigChan := make(chan os.Signal)
-	signal.Notify(sigChan, os.Interrupt)
-	signal.Notify(sigChan, os.Kill)
-
+	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
 	sig := <-sigChan
 	logger.Println("Received terminate, graceful shutdown", sig)
+	_ = fiber.App.Shutdown()
 
-	timeContext, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
+	// Cleanup
+	logger.Println("Running cleanup tasks...")
+	// Close database
+	database.GetDatabase().Conn.Close()
 
-	err := server.Shutdown(timeContext)
-	if err != nil {
-		return
-	}
+	logger.Println("Server was successful shutdown")
 }

@@ -1,11 +1,12 @@
 package handlers
 
 import (
-	"github.com/bodatomas/gopi/api/v1/models"
-	"github.com/labstack/echo/v4"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/bodatomas/gopi/api/v1/models"
+	"github.com/gofiber/fiber/v3"
 )
 
 type Board struct {
@@ -18,9 +19,9 @@ func NewBoard(logger *log.Logger) *Board {
 }
 
 // GetBoardByID Return board with given id
-func (_ *Board) GetBoardByID(context echo.Context) error {
+func (board *Board) GetBoardByID(context fiber.Ctx) error {
 	// Get id param from url
-	id := context.Param("id")
+	id := context.Params("id")
 	// Change id from string to int
 	intID, err := strconv.Atoi(id)
 	if err != nil {
@@ -29,7 +30,7 @@ func (_ *Board) GetBoardByID(context echo.Context) error {
 	// Get board from database
 	data, err := models.GetBoardByID(intID)
 	if err != nil {
-		return context.NoContent(http.StatusNotFound)
+		return context.JSON(http.StatusNotFound)
 	}
-	return context.JSONPretty(http.StatusOK, data, " ")
+	return context.JSON(data)
 }
