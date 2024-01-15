@@ -6,11 +6,19 @@ import (
 	"github.com/bodatomas/gopi/database"
 )
 
+/*
+**
+Get board with specific ID.
+**
+*/
+const GetBoardByIdSQL = `
+SELECT * FROM boards WHERE id = $1;
+`
+
 func GetBoardByID(targetId int) *sql.Row {
 	db := database.GetDatabase()
 	if db != nil {
-		sqlStatement := `SELECT * FROM boards WHERE id = $1;`
-		row := db.Conn.QueryRow(sqlStatement, targetId)
+		row := db.Conn.QueryRow(GetBoardByIdSQL, targetId)
 		return row
 	}
 	return nil
