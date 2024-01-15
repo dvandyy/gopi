@@ -29,7 +29,7 @@ func main() {
 	database.CreateDatabase()
 
 	// PORT
-	port := fmt.Sprintf(":%s", config.Cfg.Address)
+	port := fmt.Sprintf(":%s", config.Get().Address)
 
 	// Concurrent server run and listen
 	go func() {

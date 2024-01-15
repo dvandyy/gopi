@@ -23,11 +23,15 @@ type Config struct {
 	DB_Name     string `env:"DB_NAME"`
 }
 
-var Cfg = &Config{}
+var cfg = &Config{}
 
 func New(logger *log.Logger) {
-	err := env.Parse(Cfg) // Parsing env values
+	err := env.Parse(cfg) // Parsing env values
 	if err != nil {
 		logger.Printf("%+v\n", err)
 	}
+}
+
+func Get() *Config {
+	return cfg
 }

@@ -17,11 +17,11 @@ var db *DB
 func InitDatabase() *DB {
 	psqlInfo := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		config.Cfg.DB_Host,
-		config.Cfg.DB_Port,
-		config.Cfg.DB_User,
-		config.Cfg.DB_Password,
-		config.Cfg.DB_Name)
+		config.Get().DB_Host,
+		config.Get().DB_Port,
+		config.Get().DB_User,
+		config.Get().DB_Password,
+		config.Get().DB_Name)
 
 	conn, err := sql.Open("postgres", psqlInfo)
 

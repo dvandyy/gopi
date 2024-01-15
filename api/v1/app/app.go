@@ -23,7 +23,8 @@ func InitFiberApp(logger *log.Logger) *FiberApp {
 // Server configuration
 func (fiber *FiberApp) SetupServer(logger *log.Logger) {
 	server := fiber.App.Server()
-	server.IdleTimeout = config.Cfg.IdleTimeout * time.Second
-	server.WriteTimeout = config.Cfg.WriteTimeout * time.Second
-	server.ReadTimeout = config.Cfg.ReadTimeout * time.Second
+	server.IdleTimeout = config.Get().IdleTimeout * time.Second
+	server.WriteTimeout = config.Get().WriteTimeout * time.Second
+	server.ReadTimeout = config.Get().ReadTimeout * time.Second
+	logger.Println("Server was succesfully configured.")
 }
