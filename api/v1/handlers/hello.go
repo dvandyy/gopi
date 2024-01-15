@@ -20,5 +20,5 @@ func (hello *Hello) GetHello(context fiber.Ctx) error {
 		"status":  http.StatusOK,
 		"message": "Hello world!",
 	}
-	return context.JSONP(data)
+	return context.JSON(data)
 }

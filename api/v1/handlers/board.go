@@ -30,7 +30,7 @@ func (board *Board) GetBoardByID(context fiber.Ctx) error {
 	// Get board from database
 	data, err := models.GetBoardByID(intID)
 	if err != nil {
-		return context.JSON(http.StatusNotFound)
+		return context.JSON(fiber.Map{"status": http.StatusNotFound})
 	}
 	return context.JSON(data)
 }

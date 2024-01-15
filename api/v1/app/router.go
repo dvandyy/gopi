@@ -3,17 +3,22 @@ package app
 import (
 	"log"
 
-	"github.com/bodatomas/gopi/api/v1/handlers"
-	"github.com/bodatomas/gopi/config"
+	"github.com/bodatomas/gopi/api/v1/requests"
 	"github.com/gofiber/fiber/v3"
 )
 
 func SetupGetRequests(router *fiber.App, logger *log.Logger) {
+	requests.SetupApiGetRequests(router, logger)
+}
 
-	basePath := "/api/" + config.Cfg.Version
+func SetupPostRequests(router *fiber.App, logger *log.Logger) {
 
-	// GET routes
-	router.Get(basePath+"/", handlers.NewHello(logger).GetHello)
-	router.Get(basePath+"/board/:id", handlers.NewBoard(logger).GetBoardByID)
+}
+
+func SetupPutRequests(router *fiber.App, logger *log.Logger) {
+
+}
+
+func SetupDeleteRequests(router *fiber.App, logger *log.Logger) {
 
 }
