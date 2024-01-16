@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/bodatomas/gopi/api/v1/models"
-	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v2"
 )
 
 type Board struct {
@@ -19,7 +19,7 @@ func NewBoard(logger *log.Logger) *Board {
 }
 
 // GetBoardByID Return board with given id
-func (board *Board) GetBoardByID(context fiber.Ctx) error {
+func (board *Board) GetBoardByID(context *fiber.Ctx) error {
 	// Get id param from url
 	id := context.Params("id")
 	// Change id from string to int

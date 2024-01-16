@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/bodatomas/gopi/config"
-	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v2"
 )
 
 type FiberApp struct {

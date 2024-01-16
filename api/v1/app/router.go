@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/bodatomas/gopi/api/v1/requests"
-	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v2"
 )
 
 func SetupGetRequests(router *fiber.App, logger *log.Logger) {
