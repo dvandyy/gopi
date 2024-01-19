@@ -26,8 +26,11 @@ migrateup:
 migratedown:
 	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/gopi_db?sslmode=disable" -verbose down
 
+make runtests:
+	go test ./utils/
+
 # Exec into main app
 exec:
 	docker exec -it gopi-dev sh
 
-.PHONY: run stop rebuild migrateup migratedown exec
+.PHONY: run stop rebuild migrateup migratedown runtests exec
