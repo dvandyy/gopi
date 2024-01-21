@@ -12,6 +12,16 @@ import (
 	"github.com/bodatomas/gopi/database"
 )
 
+// @title Gopi API
+// @version 1.0
+// @description REST api
+
+// @contact.name Tomáš Boďa
+// @contact.url https://github.com/dvandyy
+// @contact.email tomasboda.dev@gmail.com
+
+// @host localhost
+// @BasePath /api/v1/
 func main() {
 	// Logger for one place logging
 	logger := log.New(os.Stdout, "gopi-api", log.LstdFlags)

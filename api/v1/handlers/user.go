@@ -7,6 +7,13 @@ import (
 )
 
 // Register user
+// @Summary      Create new user
+// @Description  Create new user in database
+// @Tags         Users
+// @Accept		 json
+// @Produce      json
+// @Success      200  {string} 	"User succesfully created."
+// @Router       /user/register [post]
 func HandleRegisterUser(c *fiber.Ctx) error {
 	// Validate user input (email, password)
 	registerInput, err := utils.CheckValidRegistrationInput(c)

@@ -1,0 +1,96 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "REST api",
+        "title": "Gopi API",
+        "contact": {
+            "name": "Tomáš Boďa",
+            "url": "https://github.com/dvandyy",
+            "email": "tomasboda.dev@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost",
+    "basePath": "/api/v1/",
+    "paths": {
+        "/": {
+            "get": {
+                "description": "Retun a hello message if everything is ok",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Welcome"
+                ],
+                "summary": "Show a hello message",
+                "responses": {
+                    "200": {
+                        "description": "Hello world!",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/board/:id": {
+            "get": {
+                "description": "Return board with given id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Return board with given id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Board"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register": {
+            "post": {
+                "description": "Create new user in database",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create new user",
+                "responses": {
+                    "200": {
+                        "description": "User succesfully created.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Board": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
