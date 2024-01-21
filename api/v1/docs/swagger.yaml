@@ -1,0 +1,63 @@
+basePath: /api/v1/
+definitions:
+  models.Board:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost
+info:
+  contact:
+    email: tomasboda.dev@gmail.com
+    name: Tomáš Boďa
+    url: https://github.com/dvandyy
+  description: REST api
+  title: Gopi API
+  version: "1.0"
+paths:
+  /:
+    get:
+      description: Retun a hello message if everything is ok
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Hello world!
+          schema:
+            type: string
+      summary: Show a hello message
+      tags:
+      - Welcome
+  /board/:id:
+    get:
+      description: Return board with given id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Board'
+      summary: Return board with given id
+      tags:
+      - Boards
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: Create new user in database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User succesfully created.
+          schema:
+            type: string
+      summary: Create new user
+      tags:
+      - Users
+swagger: "2.0"

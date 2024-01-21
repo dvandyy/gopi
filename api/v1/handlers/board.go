@@ -8,6 +8,12 @@ import (
 )
 
 // GetBoardByID Return board with given id
+// @Summary      Return board with given id
+// @Description  Return board with given id
+// @Tags         Boards
+// @Produce      json
+// @Success      200  {object}  models.Board
+// @Router       /board/:id [get]
 func HandleGetBoardByID(c *fiber.Ctx) error {
 	// Get id param from url
 	id := c.Params("id")

@@ -1,22 +1,20 @@
 include .env
 
-docker-dev = docker-compose -f docker-compose-dev.yaml
-
 # Start docker
 run:
-	$(docker-dev) up $(args)
+	docker-compose up $(args)
 
 # Stop docker
 stop:
-	$(docker-dev) down
+	docker-compose down
 
 # Clean rebuild
 rebuild:
-	$(docker-dev) down --volumes && \
-	$(docker-dev) rm --all && \
-	$(docker-dev) pull --ignore-buildable && \
-	$(docker-dev) build --no-cache && \
-	$(docker-dev) up --force-recreate
+	docker-compose down --volumes && \
+	docker-compose rm --all && \
+	docker-compose pull --ignore-buildable && \
+	docker-compose build --no-cache && \
+	docker-compose up --force-recreate
 
 # Run migration up with golang-migrate
 migrateup:
@@ -26,11 +24,17 @@ migrateup:
 migratedown:
 	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/gopi_db?sslmode=disable" -verbose down
 
-make runtests:
-	go test ./utils/
+# Run tests
+runtests:
+	go test ./utils
+
+# Generate swagger files
+swagger:
+	docker exec gopi-dev sh & swag init --parseDependency -d ./api/v1/handlers -g ../../../cmd/main.go -o ./api/v1/docs
+
 
 # Exec into main app
 exec:
 	docker exec -it gopi-dev sh
 
-.PHONY: run stop rebuild migrateup migratedown runtests exec
+.PHONY: run stop rebuild migrateup migratedown runtests swagger exec 
