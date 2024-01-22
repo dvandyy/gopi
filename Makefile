@@ -26,7 +26,7 @@ migratedown:
 
 # Run tests
 runtests:
-	go test ./utils
+	go test ./... -v
 
 # Generate swagger files
 swagger:
