@@ -2,11 +2,13 @@ basePath: /api/v1/
 definitions:
   models.Board:
     properties:
-      description:
+      created_at:
         type: string
       id:
         type: integer
-      name:
+      title:
+        type: string
+      unique_id:
         type: string
     type: object
 host: localhost
@@ -32,9 +34,9 @@ paths:
       summary: Show a hello message
       tags:
       - Welcome
-  /board/:id:
+  /board/:uid:
     get:
-      description: Return board with given id
+      description: Return board with unique id
       produces:
       - application/json
       responses:
@@ -42,7 +44,20 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Board'
-      summary: Return board with given id
+      summary: Return board with unique id
+      tags:
+      - Boards
+  /board/new:
+    post:
+      description: Create a new board
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Board'
+      summary: Create a new board
       tags:
       - Boards
   /user/register:

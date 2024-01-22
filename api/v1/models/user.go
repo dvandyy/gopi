@@ -20,6 +20,7 @@ type LoginResponse struct {
 
 type User struct {
 	ID         uint   `json:"id"`
+	Unique_id  string `json:"unique_id"`
 	First_Name string `json:"first_name"`
 	Last_Name  string `json:"last_name"`
 	Email      string `json:"email"`
@@ -28,6 +29,7 @@ type User struct {
 	Created_at string `json:"created_at"`
 }
 
+// Create new user in database
 func CreateNewUser(email string, password string) error {
 	return queries.NewUser(email, password)
 }

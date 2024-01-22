@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// GetHello Return hello message just for checking if everything is ok
 // @Summary      Show a hello message
 // @Description  Retun a hello message if everything is ok
 // @Tags         Welcome

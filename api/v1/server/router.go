@@ -8,7 +8,6 @@ import (
 )
 
 func (s *Server) SetupGetRequests(logger *log.Logger) {
-
 	// Documentation
 	docs := s.fiber.Group("/api/v1/docs/")
 	docs.Get("/*", swagger.HandleConfiguredSwagger)
@@ -17,12 +16,16 @@ func (s *Server) SetupGetRequests(logger *log.Logger) {
 	api := s.fiber.Group("/api/v1/")
 	api.Get("/", handlers.HandleGetHello)
 	api.Get("/board/:id", handlers.HandleGetBoardByID)
-
 }
 
 func (s *Server) SetupPostRequests(logger *log.Logger) {
+	// User
 	user := s.fiber.Group("/user/")
 	user.Post("/register", handlers.HandleRegisterUser)
+
+	// Board
+	board := s.fiber.Group("/board")
+	board.Post("/new", handlers.HandleCreateBoard)
 }
 
 func (s *Server) SetupPutRequests(logger *log.Logger) {

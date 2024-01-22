@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/bodatomas/gopi/database"
+	"github.com/google/uuid"
 )
 
 /*
@@ -12,7 +13,7 @@ Get board with specific ID.
 **
 */
 const GetBoardByIdSQL = `
-SELECT * FROM boards WHERE id = $1;
+SELECT * FROM boards WHERE unique_id = $1;
 `
 
 func GetBoardByID(id string) *sql.Row {
@@ -30,15 +31,16 @@ Create new board.
 **
 */
 const NewBoardSQL = `
-INSERT INTO boards (name, description) VALUES ($1, $2)
+INSERT INTO boards (unique_id, title) VALUES ($1, $2)
 `
 
-func NewBoard(name string, description string) {
+func NewBoard(title string) error {
 	db := database.GetDatabase()
 	if db != nil {
-		_, err := db.Conn.Exec(NewBoardSQL, name, description)
+		_, err := db.Conn.Exec(NewBoardSQL, uuid.New(), title)
 		if err != nil {
-			panic(err)
+			return err
 		}
 	}
+	return nil
 }

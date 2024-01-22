@@ -39,16 +39,36 @@ const docTemplate = `{
                 }
             }
         },
-        "/board/:id": {
+        "/board/:uid": {
             "get": {
-                "description": "Return board with given id",
+                "description": "Return board with unique id",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Boards"
                 ],
-                "summary": "Return board with given id",
+                "summary": "Return board with unique id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Board"
+                        }
+                    }
+                }
+            }
+        },
+        "/board/new": {
+            "post": {
+                "description": "Create a new board",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Create a new board",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -87,13 +107,16 @@ const docTemplate = `{
         "models.Board": {
             "type": "object",
             "properties": {
-                "description": {
+                "created_at": {
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
-                "name": {
+                "title": {
+                    "type": "string"
+                },
+                "unique_id": {
                     "type": "string"
                 }
             }

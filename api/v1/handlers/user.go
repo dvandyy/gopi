@@ -6,7 +6,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Register user
 // @Summary      Create new user
 // @Description  Create new user in database
 // @Tags         Users
@@ -19,7 +18,7 @@ func HandleRegisterUser(c *fiber.Ctx) error {
 	registerInput, err := utils.CheckValidRegistrationInput(c)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": err.Error(),
+			"error": "Error while creating user",
 		})
 	}
 
@@ -27,7 +26,7 @@ func HandleRegisterUser(c *fiber.Ctx) error {
 	hashedPassword, err := utils.HashPassword(registerInput.Password)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Cannot hash password",
+			"error": "Error while creating user",
 		})
 	}
 
@@ -35,7 +34,7 @@ func HandleRegisterUser(c *fiber.Ctx) error {
 	db_err := models.CreateNewUser(registerInput.Email, hashedPassword)
 	if db_err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Cannot create user",
+			"error": "Error while creating user",
 		})
 	}
 
