@@ -32,7 +32,6 @@ runtests:
 swagger:
 	docker exec gopi-dev sh & swag init --parseDependency -d ./api/v1/handlers -g ../../../cmd/main.go -o ./api/v1/docs
 
-
 # Exec into main app
 exec:
 	docker exec -it gopi-dev sh
