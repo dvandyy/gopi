@@ -20,7 +20,7 @@ import (
 // @contact.url https://github.com/dvandyy
 // @contact.email tomasboda.dev@gmail.com
 
-// @host localhost
+// @host localhost:4000
 // @BasePath /api/v1/
 func main() {
 	// Logger for one place logging

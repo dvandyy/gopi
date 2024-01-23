@@ -4,12 +4,28 @@ import (
 	"github.com/bodatomas/gopi/database/queries"
 )
 
-type LoginRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+type User struct {
+	ID         uint    `json:"id" example:"1"`
+	Unique_id  string  `json:"unique_id" example:"926e7309-12e4-4c50-824c-33737fb45f8a"`
+	First_Name *string `json:"first_name" example:"FirstName"`
+	Last_Name  *string `json:"last_name" example:"LastName"`
+	Email      string  `json:"email" example:"email@email.com"`
+	Password   string  `json:"password" example:"hash"`
+	Role       *string `json:"role" example:"Tester"`
+	Created_at string  `json:"created_at" example:"2024-01-22 17:03:50.283466+00"`
 }
 
 type RegisterRequest struct {
+	Email    string `json:"email" example:"email@email.com"`
+	Password string `json:"password" example:"Password123&"`
+}
+
+type RegisterResponse struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
+type LoginRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
@@ -18,15 +34,18 @@ type LoginResponse struct {
 	Token string `json:"token"`
 }
 
-type User struct {
-	ID         uint   `json:"id"`
-	Unique_id  string `json:"unique_id"`
-	First_Name string `json:"first_name"`
-	Last_Name  string `json:"last_name"`
-	Email      string `json:"email"`
-	Password   string `json:"password"`
-	Role       string `json:"role"`
-	Created_at string `json:"created_at"`
+// Get user with unique id
+func GetUserByID(id string) (User, error) {
+	var user User
+
+	// Get user from databse
+	row := queries.GetUserByID(id)
+	err := row.Scan(&user.ID, &user.Unique_id, &user.First_Name, &user.Last_Name, &user.Email, &user.Password, &user.Role, &user.Created_at)
+	if err != nil {
+		return User{}, err
+	}
+
+	return user, nil
 }
 
 // Create new user in database

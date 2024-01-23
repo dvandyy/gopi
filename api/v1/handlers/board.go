@@ -1,55 +1,62 @@
 package handlers
 
 import (
-	"net/http"
-
 	"github.com/bodatomas/gopi/api/v1/models"
 	"github.com/gofiber/fiber/v2"
 )
 
-// @Summary      Return board with unique id
+// @Summary      Get board with UUID
 // @Description  Return board with unique id
 // @Tags         Boards
 // @Produce      json
+// @Param 		 uid path string true "Board unique ID"
 // @Success      200  {object}  models.Board
-// @Router       /board/:uid [get]
+// @Router       /boards/{uid} [get]
 func HandleGetBoardByID(c *fiber.Ctx) error {
 	// Get id param from url
-	id := c.Params("id")
+	id := c.Params("uid")
 	// Get board from database
-	data, err := models.GetBoardByUID(id)
+	board, err := models.GetBoardByUID(id)
 	if err != nil {
-		return c.JSON(fiber.Map{"status": http.StatusNotFound})
+		return c.JSON(models.Error{
+			Status:  fiber.StatusNotFound,
+			Message: "Board was not found",
+		})
 	}
-	return c.JSON(data)
+	return c.JSON(board)
 }
 
-// @Summary      Create a new board
-// @Description  Create a new board
+// @Summary      Create new board
+// @Description  Create a new board in database.
 // @Tags         Boards
+// @Param		 CreateBoardRequest body models.CreateBoardRequest true "Create board with Title and Description"
 // @Produce      json
-// @Success      200  {object}  models.Board
-// @Router       /board/new [Post]
+// @Success      200 {object}  models.CreateBoardResponse
+// @Router       /boards/new [Post]
 func HandleCreateBoard(c *fiber.Ctx) error {
-	board := new(models.Board)
+	var board models.Board
 
 	// Check if input is valid
 	if err := c.BodyParser(board); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Error while creating board",
+		return c.JSON(models.Error{
+			Status:  fiber.StatusBadRequest,
+			Message: "Invalid request body",
 		})
 	}
 
 	// Store user data in the database
-	db_err := models.CreateNewBoard(board.Title)
+	db_err := models.CreateNewBoard(board.Title, board.Description)
 	if db_err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Error while creating board",
+		return c.JSON(models.Error{
+			Status:  fiber.StatusInternalServerError,
+			Message: "Error while creating board",
 		})
 	}
 
 	// Return a success message
-	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{
-		"success": "Board successfully created",
-	})
+	response := models.CreateBoardResponse{
+		Status:  fiber.StatusAccepted,
+		Message: "Board successfully created.",
+	}
+	return c.JSON(response)
 }

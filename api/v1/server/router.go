@@ -14,18 +14,25 @@ func (s *Server) SetupGetRequests(logger *log.Logger) {
 
 	// Api
 	api := s.fiber.Group("/api/v1/")
+
+	// Hello
 	api.Get("/", handlers.HandleGetHello)
-	api.Get("/board/:id", handlers.HandleGetBoardByID)
+
+	// User
+	api.Get("/users/:uid", handlers.HandleGetUserByID)
+
+	// Board
+	api.Get("/boards/:uid", handlers.HandleGetBoardByID)
 }
 
 func (s *Server) SetupPostRequests(logger *log.Logger) {
+	api := s.fiber.Group("/api/v1/")
+
 	// User
-	user := s.fiber.Group("/user/")
-	user.Post("/register", handlers.HandleRegisterUser)
+	api.Post("/users/register", handlers.HandleRegisterUser)
 
 	// Board
-	board := s.fiber.Group("/board")
-	board.Post("/new", handlers.HandleCreateBoard)
+	api.Post("/boards/new", handlers.HandleCreateBoard)
 }
 
 func (s *Server) SetupPutRequests(logger *log.Logger) {

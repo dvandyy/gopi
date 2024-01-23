@@ -21,6 +21,7 @@ CREATE TABLE "boards" (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "unique_id" uuid NOT NULL,
   "title" varchar,
+  "description" varchar,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 

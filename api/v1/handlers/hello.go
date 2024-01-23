@@ -1,8 +1,7 @@
 package handlers
 
 import (
-	"net/http"
-
+	"github.com/bodatomas/gopi/api/v1/models"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -10,12 +9,12 @@ import (
 // @Description  Retun a hello message if everything is ok
 // @Tags         Welcome
 // @Produce      json
-// @Success      200  {string}  string    "Hello world!"
+// @Success      200  {object}  models.HelloResponse  "Return 'Hello from gopi!'"
 // @Router       / [get]
 func HandleGetHello(context *fiber.Ctx) error {
-	data := fiber.Map{
-		"status":  http.StatusOK,
-		"message": "Hello world!",
+	respone := models.HelloResponse{
+		Status:   fiber.StatusAccepted,
+		Messsage: "Hello from gopi!",
 	}
-	return context.JSON(data)
+	return context.JSON(respone)
 }
