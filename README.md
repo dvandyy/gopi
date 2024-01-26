@@ -3,6 +3,7 @@ Documentation: `localhost:4000/api/v1/docs`
 - `make run` - Run project
 - `make stop` - Stop project
 - `make rebuild` - Rebuild project.
+- `make build` - Build project into binary.
 - `make migrateup` - Create database base tables.
 - `make migratedown` - Clear database base tables.
 - `make runtests` - Run tests in whole project.
