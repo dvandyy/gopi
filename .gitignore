@@ -1,11 +1,10 @@
-*.env
-.DS_Store
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
+/bin
 
 # Test binary, built with `go test -c`
 *.test
@@ -15,6 +14,10 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+*.env
 
 # Go workspace file
 go.work
+
+#Misc
+*.DS_Store

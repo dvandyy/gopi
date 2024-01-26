@@ -16,6 +16,10 @@ rebuild:
 	docker-compose build --no-cache && \
 	docker-compose up --force-recreate
 
+# Build project to binary
+build:
+	go build -o ./bin/gopi ./cmd/
+
 # Run migration up with golang-migrate
 migrateup:
 	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/gopi_db?sslmode=disable" -verbose up
@@ -36,4 +40,4 @@ swagger:
 exec:
 	docker exec -it gopi-dev sh
 
-.PHONY: run stop rebuild migrateup migratedown runtests swagger exec 
+.PHONY: run stop rebuild build migrateup migratedown runtests swagger exec 
