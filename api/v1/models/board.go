@@ -37,6 +37,6 @@ func GetBoardByUID(id string) (Board, error) {
 }
 
 // Create new bord in database
-func CreateNewBoard(title string, description string) error {
-	return queries.NewBoard(title, description)
+func CreateNewBoard(unique_id string, title string, description string) error {
+	return queries.NewBoard(unique_id, title, description)
 }

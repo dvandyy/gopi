@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	"github.com/bodatomas/gopi/database"
-	"github.com/google/uuid"
 )
 
 /*
@@ -34,10 +33,10 @@ const NewUserSQL = `
 INSERT INTO users (unique_id, email, password) VALUES ($1, $2, $3)
 `
 
-func NewUser(email string, password string) error {
+func NewUser(unique_id string, email string, password string) error {
 	db := database.GetDatabase()
 	if db != nil {
-		_, err := db.Conn.Exec(NewUserSQL, uuid.New(), email, password)
+		_, err := db.Conn.Exec(NewUserSQL, unique_id, email, password)
 		if err != nil {
 			return err
 		}

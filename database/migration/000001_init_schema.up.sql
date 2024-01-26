@@ -1,6 +1,6 @@
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "unique_id" uuid NOT NULL,
+  "unique_id" varchar NOT NULL,
   "first_name" varchar,
   "last_name" varchar,
   "email" varchar UNIQUE NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "workspaces" (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "unique_id" uuid NOT NULL,
+  "unique_id" varchar NOT NULL,
   "teams" bigint,
   "owner" bigint,
   "created_at" timestamptz NOT NULL DEFAULT (now())
@@ -19,7 +19,7 @@ CREATE TABLE "workspaces" (
 
 CREATE TABLE "boards" (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "unique_id" uuid NOT NULL,
+  "unique_id" varchar NOT NULL,
   "title" varchar,
   "description" varchar,
   "created_at" timestamptz NOT NULL DEFAULT (now())
@@ -27,7 +27,7 @@ CREATE TABLE "boards" (
 
 CREATE TABLE "teams" (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "unique_id" uuid NOT NULL,
+  "unique_id" varchar NOT NULL,
   "name" varchar NOT NULL,
   "boards" bigint,
   "members" bigint,

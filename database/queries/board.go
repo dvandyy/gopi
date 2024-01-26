@@ -4,7 +4,6 @@ import (
 	"database/sql"
 
 	"github.com/bodatomas/gopi/database"
-	"github.com/google/uuid"
 )
 
 /*
@@ -34,10 +33,10 @@ const NewBoardSQL = `
 INSERT INTO boards (unique_id, title, description) VALUES ($1, $2, $3)
 `
 
-func NewBoard(title string, description string) error {
+func NewBoard(unique_id string, title string, description string) error {
 	db := database.GetDatabase()
 	if db != nil {
-		_, err := db.Conn.Exec(NewBoardSQL, uuid.New(), title, description)
+		_, err := db.Conn.Exec(NewBoardSQL, unique_id, title, description)
 		if err != nil {
 			return err
 		}

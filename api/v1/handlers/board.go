@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/bodatomas/gopi/api/v1/models"
+	"github.com/bodatomas/gopi/utils"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -44,8 +45,11 @@ func HandleCreateBoard(c *fiber.Ctx) error {
 		})
 	}
 
+	// Generate unique id with prefix
+	uuid := utils.GenerateUniqueID("b-")
+
 	// Store user data in the database
-	db_err := models.CreateNewBoard(board.Title, board.Description)
+	db_err := models.CreateNewBoard(uuid, board.Title, board.Description)
 	if db_err != nil {
 		return c.JSON(models.Error{
 			Status:  fiber.StatusInternalServerError,

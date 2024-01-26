@@ -49,6 +49,6 @@ func GetUserByID(id string) (User, error) {
 }
 
 // Create new user in database
-func CreateNewUser(email string, password string) error {
-	return queries.NewUser(email, password)
+func CreateNewUser(unique_id string, email string, password string) error {
+	return queries.NewUser(unique_id, email, password)
 }

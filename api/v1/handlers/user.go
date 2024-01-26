@@ -51,8 +51,11 @@ func HandleRegisterUser(c *fiber.Ctx) error {
 		})
 	}
 
+	// Generate unique id with prefix
+	uuid := utils.GenerateUniqueID("u-")
+
 	// Store user data in the database
-	db_err := models.CreateNewUser(registerInput.Email, hashedPassword)
+	db_err := models.CreateNewUser(uuid, registerInput.Email, hashedPassword)
 	if db_err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Error while creating user",
