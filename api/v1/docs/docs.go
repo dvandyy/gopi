@@ -51,7 +51,7 @@ const docTemplate = `{
                 "summary": "Create new board",
                 "parameters": [
                     {
-                        "description": "Create board with Title and Description",
+                        "description": "Create board with Title",
                         "name": "CreateBoardRequest",
                         "in": "body",
                         "required": true,
@@ -94,6 +94,37 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.Board"
+                        }
+                    }
+                }
+            }
+        },
+        "/team/new": {
+            "post": {
+                "description": "Create a new team in database.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Create new team",
+                "parameters": [
+                    {
+                        "description": "Create new team with workspace_id and name",
+                        "name": "CreateTeamRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateTeamRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateTeamResponse"
                         }
                     }
                 }
@@ -161,6 +192,37 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/workspace/new": {
+            "post": {
+                "description": "Create a new workspace in database.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Workspaces"
+                ],
+                "summary": "Create new workspace",
+                "parameters": [
+                    {
+                        "description": "Create new workspace with owner_id and name",
+                        "name": "CreateWorkspaceRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateWorkspaceRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateWorkspaceResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -185,7 +247,7 @@ const docTemplate = `{
                 },
                 "unique_id": {
                     "type": "string",
-                    "example": "926e7309-12e4-4c50-824c-33737fb45f8a"
+                    "example": "b-1706453613063fa2eb4"
                 }
             }
         },
@@ -196,6 +258,10 @@ const docTemplate = `{
                     "type": "string",
                     "example": "My description"
                 },
+                "team_id": {
+                    "type": "string",
+                    "example": "t-1706453613063fa2eb4"
+                },
                 "title": {
                     "type": "string",
                     "example": "My title"
@@ -203,6 +269,54 @@ const docTemplate = `{
             }
         },
         "models.CreateBoardResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.CreateTeamRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "My team"
+                },
+                "workspace_id": {
+                    "type": "string",
+                    "example": "w-1706453613063fa2eb4"
+                }
+            }
+        },
+        "models.CreateTeamResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.CreateWorkspaceRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "My workspace"
+                },
+                "owner": {
+                    "type": "string",
+                    "example": "u-1706453613063fa2eb4"
+                }
+            }
+        },
+        "models.CreateWorkspaceResponse": {
             "type": "object",
             "properties": {
                 "message": {
@@ -281,7 +395,7 @@ const docTemplate = `{
                 },
                 "unique_id": {
                     "type": "string",
-                    "example": "926e7309-12e4-4c50-824c-33737fb45f8a"
+                    "example": "u-1706453613063fa2eb4"
                 }
             }
         }

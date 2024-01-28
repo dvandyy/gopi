@@ -31,6 +31,12 @@ func (s *Server) SetupPostRequests(logger *log.Logger) {
 	// User
 	api.Post("/users/register", handlers.HandleRegisterUser)
 
+	// Workspace
+	api.Post("/workspace/new", handlers.HandleCreateWorkspace)
+
+	// Team
+	api.Post("/team/new", handlers.HandleCreateTeam)
+
 	// Board
 	api.Post("/boards/new", handlers.HandleCreateBoard)
 }

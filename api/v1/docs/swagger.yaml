@@ -15,7 +15,7 @@ definitions:
         example: Title
         type: string
       unique_id:
-        example: 926e7309-12e4-4c50-824c-33737fb45f8a
+        example: b-1706453613063fa2eb4
         type: string
     type: object
   models.CreateBoardRequest:
@@ -23,11 +23,46 @@ definitions:
       description:
         example: My description
         type: string
+      team_id:
+        example: t-1706453613063fa2eb4
+        type: string
       title:
         example: My title
         type: string
     type: object
   models.CreateBoardResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.CreateTeamRequest:
+    properties:
+      name:
+        example: My team
+        type: string
+      workspace_id:
+        example: w-1706453613063fa2eb4
+        type: string
+    type: object
+  models.CreateTeamResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.CreateWorkspaceRequest:
+    properties:
+      name:
+        example: My workspace
+        type: string
+      owner:
+        example: u-1706453613063fa2eb4
+        type: string
+    type: object
+  models.CreateWorkspaceResponse:
     properties:
       message:
         type: string
@@ -81,7 +116,7 @@ definitions:
         example: Tester
         type: string
       unique_id:
-        example: 926e7309-12e4-4c50-824c-33737fb45f8a
+        example: u-1706453613063fa2eb4
         type: string
     type: object
 host: localhost:4000
@@ -130,7 +165,7 @@ paths:
     post:
       description: Create a new board in database.
       parameters:
-      - description: Create board with Title and Description
+      - description: Create board with Title
         in: body
         name: CreateBoardRequest
         required: true
@@ -146,6 +181,26 @@ paths:
       summary: Create new board
       tags:
       - Boards
+  /team/new:
+    post:
+      description: Create a new team in database.
+      parameters:
+      - description: Create new team with workspace_id and name
+        in: body
+        name: CreateTeamRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTeamRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateTeamResponse'
+      summary: Create new team
+      tags:
+      - Teams
   /users/{uid}:
     get:
       description: Return user with unique id
@@ -187,4 +242,24 @@ paths:
       summary: Create new user
       tags:
       - Users
+  /workspace/new:
+    post:
+      description: Create a new workspace in database.
+      parameters:
+      - description: Create new workspace with owner_id and name
+        in: body
+        name: CreateWorkspaceRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateWorkspaceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateWorkspaceResponse'
+      summary: Create new workspace
+      tags:
+      - Workspaces
 swagger: "2.0"

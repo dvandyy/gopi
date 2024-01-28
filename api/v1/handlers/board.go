@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"fmt"
+
 	"github.com/bodatomas/gopi/api/v1/models"
 	"github.com/bodatomas/gopi/utils"
 	"github.com/gofiber/fiber/v2"
@@ -30,12 +32,12 @@ func HandleGetBoardByID(c *fiber.Ctx) error {
 // @Summary      Create new board
 // @Description  Create a new board in database.
 // @Tags         Boards
-// @Param		 CreateBoardRequest body models.CreateBoardRequest true "Create board with Title and Description"
+// @Param		 CreateBoardRequest body models.CreateBoardRequest true "Create board with Title"
 // @Produce      json
 // @Success      200 {object}  models.CreateBoardResponse
 // @Router       /boards/new [Post]
 func HandleCreateBoard(c *fiber.Ctx) error {
-	var board models.Board
+	board := new(models.CreateBoardRequest)
 
 	// Check if input is valid
 	if err := c.BodyParser(board); err != nil {
@@ -49,8 +51,9 @@ func HandleCreateBoard(c *fiber.Ctx) error {
 	uuid := utils.GenerateUniqueID("b-")
 
 	// Store user data in the database
-	db_err := models.CreateNewBoard(uuid, board.Title, board.Description)
+	db_err := models.CreateNewBoard(uuid, board.Team_id, board.Title)
 	if db_err != nil {
+		fmt.Println(db_err)
 		return c.JSON(models.Error{
 			Status:  fiber.StatusInternalServerError,
 			Message: "Error while creating board",
