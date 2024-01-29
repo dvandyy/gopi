@@ -30,13 +30,13 @@ Create new board.
 **
 */
 const NewBoardSQL = `
-INSERT INTO boards (unique_id, title, description) VALUES ($1, $2, $3)
+INSERT INTO boards (unique_id, team_id, title) VALUES ($1, $2, $3)
 `
 
-func NewBoard(unique_id string, title string, description string) error {
+func NewBoard(unique_id string, team_id string, title string) error {
 	db := database.GetDatabase()
 	if db != nil {
-		_, err := db.Conn.Exec(NewBoardSQL, unique_id, title, description)
+		_, err := db.Conn.Exec(NewBoardSQL, unique_id, team_id, title)
 		if err != nil {
 			return err
 		}
