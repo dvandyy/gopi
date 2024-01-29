@@ -37,7 +37,7 @@ func HandleCreateTeam(c *fiber.Ctx) error {
 	}
 
 	// Return a success message
-	response := models.CreateWorkspaceResponse{
+	response := models.CreateTeamResponse{
 		Status:  fiber.StatusAccepted,
 		Message: "Team successfully created.",
 	}
