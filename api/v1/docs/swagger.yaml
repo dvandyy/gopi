@@ -75,6 +75,22 @@ definitions:
         type: string
       status:
         type: integer
+      user_id:
+        type: string
+    type: object
+  models.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.LoginResponse:
+    properties:
+      message:
+        type: string
+      token:
+        type: string
     type: object
   models.RegisterRequest:
     properties:
@@ -139,6 +155,8 @@ paths:
           description: Return 'Hello from gopi!'
           schema:
             $ref: '#/definitions/models.HelloResponse'
+      security:
+      - JWT_TOKEN: []
       summary: Show a hello message
       tags:
       - Welcome
@@ -220,6 +238,28 @@ paths:
       summary: Get user with UUID
       tags:
       - Users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with jwt token
+      parameters:
+      - description: Login user with Email and Password.
+        in: body
+        name: LoginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LoginResponse'
+      summary: Login user
+      tags:
+      - Users
   /users/register:
     post:
       consumes:
@@ -239,7 +279,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.RegisterResponse'
-      summary: Create new user
+      summary: Register new user
       tags:
       - Users
   /workspace/new:
@@ -262,4 +302,9 @@ paths:
       summary: Create new workspace
       tags:
       - Workspaces
+securityDefinitions:
+  JWT_TOKEN:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

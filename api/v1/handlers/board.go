@@ -56,14 +56,13 @@ func HandleCreateBoard(c *fiber.Ctx) error {
 		fmt.Println(db_err)
 		return c.JSON(models.Error{
 			Status:  fiber.StatusInternalServerError,
-			Message: "Error while creating board",
+			Message: "Internal server error",
 		})
 	}
 
 	// Return a success message
-	response := models.CreateBoardResponse{
+	return c.JSON(models.CreateBoardResponse{
 		Status:  fiber.StatusAccepted,
 		Message: "Board successfully created.",
-	}
-	return c.JSON(response)
+	})
 }

@@ -3,18 +3,24 @@ package handlers
 import (
 	"github.com/bodatomas/gopi/api/v1/models"
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 // @Summary      Show a hello message
 // @Description  Retun a hello message if everything is ok
 // @Tags         Welcome
 // @Produce      json
+// @Security 	 JWT_TOKEN
 // @Success      200  {object}  models.HelloResponse  "Return 'Hello from gopi!'"
 // @Router       / [get]
-func HandleGetHello(context *fiber.Ctx) error {
-	respone := models.HelloResponse{
-		Status:   fiber.StatusAccepted,
+func HandleGetHello(c *fiber.Ctx) error {
+	user := c.Locals("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	id := claims["id"].(string)
+
+	return c.JSON(models.HelloResponse{
+		Status:   fiber.StatusOK,
 		Messsage: "Hello from gopi!",
-	}
-	return context.JSON(respone)
+		UserID:   id,
+	})
 }

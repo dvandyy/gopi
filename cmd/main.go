@@ -15,6 +15,9 @@ import (
 // @title Gopi API
 // @version 1.0
 // @description REST api
+// @securitydefinitions.apikey JWT_TOKEN
+// @in header
+// @name Authorization
 
 // @contact.name Tomáš Boďa
 // @contact.url https://github.com/dvandyy

@@ -21,6 +21,8 @@ type Config struct {
 	DB_User     string `env:"DB_USER"`
 	DB_Password string `env:"DB_PASSWORD"`
 	DB_Name     string `env:"DB_NAME"`
+
+	JWT_Secret string `env:"JWT_SECRET"`
 }
 
 var cfg = &Config{}

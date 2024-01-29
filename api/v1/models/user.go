@@ -31,7 +31,13 @@ type LoginRequest struct {
 }
 
 type LoginResponse struct {
-	Token string `json:"token"`
+	Message string `json:"message"`
+	Token   string `json:"token"`
+}
+
+type LoginItems struct {
+	Id       string
+	Password string
 }
 
 // Get user with unique id
@@ -59,4 +65,15 @@ func GetUserByID(id string) (User, error) {
 // Create new user in database
 func CreateNewUser(unique_id string, email string, password string) error {
 	return queries.NewUser(unique_id, email, password)
+}
+
+func GetUserCredentials(email string) (LoginItems, error) {
+	var login LoginItems
+	// Get user from databse
+	row := queries.GetUserCredentials(email)
+	err := row.Scan(&login.Id, &login.Password)
+	if err != nil {
+		return LoginItems{}, err
+	}
+	return login, nil
 }

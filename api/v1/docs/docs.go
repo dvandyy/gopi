@@ -21,6 +21,11 @@ const docTemplate = `{
     "paths": {
         "/": {
             "get": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
                 "description": "Retun a hello message if everything is ok",
                 "produces": [
                     "application/json"
@@ -130,6 +135,40 @@ const docTemplate = `{
                 }
             }
         },
+        "/users/login": {
+            "post": {
+                "description": "Authenticate user with jwt token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login user",
+                "parameters": [
+                    {
+                        "description": "Login user with Email and Password.",
+                        "name": "LoginRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users/register": {
             "post": {
                 "description": "Create new user in database",
@@ -142,7 +181,7 @@ const docTemplate = `{
                 "tags": [
                     "Users"
                 ],
-                "summary": "Create new user",
+                "summary": "Register new user",
                 "parameters": [
                     {
                         "description": "Create user with Email and Password.",
@@ -335,6 +374,31 @@ const docTemplate = `{
                 },
                 "status": {
                     "type": "integer"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoginRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
                 }
             }
         },
@@ -398,6 +462,13 @@ const docTemplate = `{
                     "example": "u-1706453613063fa2eb4"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "JWT_TOKEN": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`
