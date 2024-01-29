@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/bodatomas/gopi/api/v1/models"
+	"github.com/bodatomas/gopi/config"
 	"github.com/bodatomas/gopi/utils"
 	"github.com/gofiber/fiber/v2"
 )
@@ -26,7 +27,7 @@ func HandleGetUserByID(c *fiber.Ctx) error {
 	return c.JSON(data)
 }
 
-// @Summary      Create new user
+// @Summary      Register new user
 // @Description  Create new user in database
 // @Tags         Users
 // @Accept		 json
@@ -38,16 +39,18 @@ func HandleRegisterUser(c *fiber.Ctx) error {
 	// Validate user input (email, password)
 	registerInput, err := utils.CheckValidRegistrationInput(c)
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Error while creating user",
+		return c.JSON(models.Error{
+			Status:  fiber.StatusBadRequest,
+			Message: "Invalid request body",
 		})
 	}
 
 	// Hash the password
 	hashedPassword, err := utils.HashPassword(registerInput.Password)
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Error while creating user",
+		return c.JSON(models.Error{
+			Status:  fiber.StatusInternalServerError,
+			Message: "Error while creating user",
 		})
 	}
 
@@ -57,15 +60,67 @@ func HandleRegisterUser(c *fiber.Ctx) error {
 	// Store user data in the database
 	db_err := models.CreateNewUser(uuid, registerInput.Email, hashedPassword)
 	if db_err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "Error while creating user",
+		return c.JSON(models.Error{
+			Status:  fiber.StatusInternalServerError,
+			Message: "Error while creating user",
 		})
 	}
 
 	// Return a success message
-	response := models.RegisterResponse{
+	return c.JSON(models.RegisterResponse{
 		Status:  fiber.StatusAccepted,
 		Message: "User successfully created",
+	})
+}
+
+// @Summary      Login user
+// @Description  Authenticate user with jwt token
+// @Tags         Users
+// @Accept		 json
+// @Produce      json
+// @Param		 LoginRequest body models.LoginRequest true "Login user with Email and Password."
+// @Success      200  {object} models.LoginResponse
+// @Router       /users/login [post]
+func HandleLoginUser(c *fiber.Ctx) error {
+	loginRequest := new(models.LoginRequest)
+
+	// Check if input is valid
+	if err := c.BodyParser(loginRequest); err != nil {
+		return c.JSON(models.Error{
+			Status:  fiber.StatusBadRequest,
+			Message: "Invalid request body",
+		})
 	}
-	return c.JSON(response)
+
+	// Get user info from db
+	userCredentials, err := models.GetUserCredentials(loginRequest.Email)
+	if err != nil {
+		return c.JSON(models.Error{
+			Status:  fiber.StatusUnauthorized,
+			Message: "Invalid credentials",
+		})
+	}
+
+	// Check if password is correct
+	if err := utils.ComparePasswords(loginRequest.Password, userCredentials.Password); err != nil {
+		return c.JSON(models.Error{
+			Status:  fiber.StatusUnauthorized,
+			Message: "Invalid credentials",
+		})
+	}
+
+	// Generate JWT token
+	token, err := utils.GenerateJWT(userCredentials.Id, loginRequest.Email, config.Get().JWT_Secret)
+	if err != nil {
+		return c.JSON(models.Error{
+			Status:  fiber.StatusInternalServerError,
+			Message: "Internal server error",
+		})
+	}
+
+	// Return a success message
+	return c.JSON(models.LoginResponse{
+		Message: "User successfully logged in",
+		Token:   token,
+	})
 }

@@ -43,3 +43,21 @@ func NewUser(unique_id string, email string, password string) error {
 	}
 	return nil
 }
+
+/*
+**
+Get user credentials.
+**
+*/
+const GetUserCredentialsSQL = `
+SELECT unique_id, password FROM users WHERE email = $1;
+`
+
+func GetUserCredentials(email string) *sql.Row {
+	db := database.GetDatabase()
+	if db != nil {
+		row := db.Conn.QueryRow(GetUserCredentialsSQL, email)
+		return row
+	}
+	return nil
+}
