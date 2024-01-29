@@ -10,6 +10,7 @@ import (
 // @Description  Retun a hello message if everything is ok
 // @Tags         Welcome
 // @Produce      json
+// @Security 	 JWT_TOKEN
 // @Success      200  {object}  models.HelloResponse  "Return 'Hello from gopi!'"
 // @Router       / [get]
 func HandleGetHello(c *fiber.Ctx) error {
