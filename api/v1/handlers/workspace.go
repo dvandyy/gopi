@@ -9,6 +9,7 @@ import (
 // @Summary      Create new workspace
 // @Description  Create a new workspace in database.
 // @Tags         Workspaces
+// @Security 	 JWT_TOKEN
 // @Param		 CreateWorkspaceRequest body models.CreateWorkspaceRequest true "Create new workspace with owner_id and name"
 // @Produce      json
 // @Success      200 {object}  models.CreateWorkspaceResponse

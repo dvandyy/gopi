@@ -12,6 +12,7 @@ import (
 // @Summary      Get user with UUID
 // @Description  Return user with unique id
 // @Tags         Users
+// @Security 	 JWT_TOKEN
 // @Produce      json
 // @Param 		 uid path string true "User unique ID"
 // @Success      200  {object}  models.User

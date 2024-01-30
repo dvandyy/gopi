@@ -176,6 +176,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Board'
+      security:
+      - JWT_TOKEN: []
       summary: Get board with UUID
       tags:
       - Boards
@@ -196,6 +198,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CreateBoardResponse'
+      security:
+      - JWT_TOKEN: []
       summary: Create new board
       tags:
       - Boards
@@ -216,6 +220,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CreateTeamResponse'
+      security:
+      - JWT_TOKEN: []
       summary: Create new team
       tags:
       - Teams
@@ -235,6 +241,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.User'
+      security:
+      - JWT_TOKEN: []
       summary: Get user with UUID
       tags:
       - Users
@@ -299,6 +307,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.CreateWorkspaceResponse'
+      security:
+      - JWT_TOKEN: []
       summary: Create new workspace
       tags:
       - Workspaces

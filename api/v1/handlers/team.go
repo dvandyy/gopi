@@ -9,6 +9,7 @@ import (
 // @Summary      Create new team
 // @Description  Create a new team in database.
 // @Tags         Teams
+// @Security 	 JWT_TOKEN
 // @Param		 CreateTeamRequest body models.CreateTeamRequest true "Create new team with workspace_id and name"
 // @Produce      json
 // @Success      200 {object}  models.CreateTeamResponse

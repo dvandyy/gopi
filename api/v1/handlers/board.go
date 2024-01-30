@@ -11,6 +11,7 @@ import (
 // @Summary      Get board with UUID
 // @Description  Return board with unique id
 // @Tags         Boards
+// @Security 	 JWT_TOKEN
 // @Produce      json
 // @Param 		 uid path string true "Board unique ID"
 // @Success      200  {object}  models.Board
@@ -32,6 +33,7 @@ func HandleGetBoardByID(c *fiber.Ctx) error {
 // @Summary      Create new board
 // @Description  Create a new board in database.
 // @Tags         Boards
+// @Security     JWT_TOKEN
 // @Param		 CreateBoardRequest body models.CreateBoardRequest true "Create board with Title"
 // @Produce      json
 // @Success      200 {object}  models.CreateBoardResponse

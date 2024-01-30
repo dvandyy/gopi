@@ -46,6 +46,11 @@ const docTemplate = `{
         },
         "/boards/new": {
             "post": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
                 "description": "Create a new board in database.",
                 "produces": [
                     "application/json"
@@ -77,6 +82,11 @@ const docTemplate = `{
         },
         "/boards/{uid}": {
             "get": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
                 "description": "Return board with unique id",
                 "produces": [
                     "application/json"
@@ -106,6 +116,11 @@ const docTemplate = `{
         },
         "/team/new": {
             "post": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
                 "description": "Create a new team in database.",
                 "produces": [
                     "application/json"
@@ -205,6 +220,11 @@ const docTemplate = `{
         },
         "/users/{uid}": {
             "get": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
                 "description": "Return user with unique id",
                 "produces": [
                     "application/json"
@@ -234,6 +254,11 @@ const docTemplate = `{
         },
         "/workspace/new": {
             "post": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
                 "description": "Create a new workspace in database.",
                 "produces": [
                     "application/json"
