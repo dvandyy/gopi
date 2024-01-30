@@ -22,11 +22,11 @@ build:
 
 # Run migration up with golang-migrate
 migrateup:
-	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/gopi_db?sslmode=disable" -verbose up
+	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/${DB_NAME}?sslmode=disable" -verbose up
 
 # Run migration down with golang-migrate
 migratedown:
-	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/gopi_db?sslmode=disable" -verbose down
+	migrate -path database/migration/ -database "postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/${DB_NAME}?sslmode=disable" -verbose down
 
 # Run tests
 runtests:
