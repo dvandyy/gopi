@@ -1,6 +1,8 @@
 package queries
 
 import (
+	"database/sql"
+
 	"github.com/bodatomas/gopi/database"
 )
 
@@ -20,6 +22,27 @@ func NewWorkspace(unique_id string, owner string, name string) error {
 		if err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+/*
+**
+Return all workspaces for certain user.
+**
+*/
+const GerWorkspacesForUserSQL = `
+SELECT workspaces.unique_id, name FROM workspaces JOIN workspace_members
+ON workspace_members.workspace_id = workspaces.unique_id JOIN users
+ON workspace_members.user_id = users.unique_id
+WHERE user_id = (user_id) VALUES ($1)
+`
+
+func GetWorkspacesForUser(unique_id string) *sql.Row {
+	db := database.GetDatabase()
+	if db != nil {
+		row := db.Conn.QueryRow(GerWorkspacesForUserSQL, unique_id)
+		return row
 	}
 	return nil
 }
