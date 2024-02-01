@@ -287,6 +287,31 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/workspace/user": {
+            "get": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
+                "description": "Return all workspaces for certain user",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Workspaces"
+                ],
+                "summary": "Get workspaces for user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserWorkspacesResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -485,6 +510,33 @@ const docTemplate = `{
                 "unique_id": {
                     "type": "string",
                     "example": "u-1706453613063fa2eb4"
+                }
+            }
+        },
+        "models.UserWorkspacesResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer"
+                },
+                "workspaces": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.WorkspaceResponse"
+                    }
+                }
+            }
+        },
+        "models.WorkspaceResponse": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "My workspace"
+                },
+                "unique_id": {
+                    "type": "string",
+                    "example": "w-1706453613063fa2eb4"
                 }
             }
         }

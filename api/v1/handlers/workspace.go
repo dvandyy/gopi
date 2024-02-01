@@ -12,7 +12,7 @@ import (
 // @Tags         Workspaces
 // @Security 	 JWT_TOKEN
 // @Produce      json
-// @Success      200 {object}  models.UserWorkspaceResponse
+// @Success      200 {object}  models.UserWorkspacesResponse
 // @Router       /workspace/user [Get]
 func HandleGetUserWorkspaces(c *fiber.Ctx) error {
 	// Get user id from JWT token

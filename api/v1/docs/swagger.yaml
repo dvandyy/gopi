@@ -135,6 +135,24 @@ definitions:
         example: u-1706453613063fa2eb4
         type: string
     type: object
+  models.UserWorkspacesResponse:
+    properties:
+      status:
+        type: integer
+      workspaces:
+        items:
+          $ref: '#/definitions/models.WorkspaceResponse'
+        type: array
+    type: object
+  models.WorkspaceResponse:
+    properties:
+      name:
+        example: My workspace
+        type: string
+      unique_id:
+        example: w-1706453613063fa2eb4
+        type: string
+    type: object
 host: localhost:4000
 info:
   contact:
@@ -310,6 +328,21 @@ paths:
       security:
       - JWT_TOKEN: []
       summary: Create new workspace
+      tags:
+      - Workspaces
+  /workspace/user:
+    get:
+      description: Return all workspaces for certain user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserWorkspacesResponse'
+      security:
+      - JWT_TOKEN: []
+      summary: Get workspaces for user
       tags:
       - Workspaces
 securityDefinitions:
