@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"fmt"
-
 	"github.com/bodatomas/gopi/api/v1/models"
 	"github.com/bodatomas/gopi/utils"
 	"github.com/gofiber/fiber/v2"
@@ -55,7 +53,6 @@ func HandleCreateBoard(c *fiber.Ctx) error {
 	// Store user data in the database
 	db_err := models.CreateNewBoard(uuid, board.Team_id, board.Title)
 	if db_err != nil {
-		fmt.Println(db_err)
 		return c.JSON(models.Error{
 			Status:  fiber.StatusInternalServerError,
 			Message: "Internal server error",

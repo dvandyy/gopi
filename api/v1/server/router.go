@@ -22,8 +22,12 @@ func (s *Server) SetupGetRequests(logger *log.Logger) {
 	// User
 	api.Get("/users/:uid", middlewares.AuthMiddleware(), handlers.HandleGetUserByID)
 
+	// Workspace
+	api.Get("/workspace/user", middlewares.AuthMiddleware(), handlers.HandleGetUserWorkspaces)
+
 	// Board
 	api.Get("/boards/:uid", middlewares.AuthMiddleware(), handlers.HandleGetBoardByID)
+
 }
 
 func (s *Server) SetupPostRequests(logger *log.Logger) {

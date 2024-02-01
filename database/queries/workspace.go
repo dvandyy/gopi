@@ -32,17 +32,20 @@ Return all workspaces for certain user.
 **
 */
 const GerWorkspacesForUserSQL = `
-SELECT workspaces.unique_id, name FROM workspaces JOIN workspace_members
+SELECT  workspaces.unique_id, name FROM workspaces JOIN workspace_members
 ON workspace_members.workspace_id = workspaces.unique_id JOIN users
 ON workspace_members.user_id = users.unique_id
-WHERE user_id = (user_id) VALUES ($1)
+WHERE user_id = $1
 `
 
-func GetWorkspacesForUser(unique_id string) *sql.Row {
+func GetWorkspacesForUser(unique_id string) *sql.Rows {
 	db := database.GetDatabase()
 	if db != nil {
-		row := db.Conn.QueryRow(GerWorkspacesForUserSQL, unique_id)
-		return row
+		rows, err := db.Conn.Query(GerWorkspacesForUserSQL, unique_id)
+		if err != nil {
+			return nil
+		}
+		return rows
 	}
 	return nil
 }
