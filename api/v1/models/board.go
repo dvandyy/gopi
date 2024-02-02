@@ -12,6 +12,11 @@ type Board struct {
 	Created_at  string  `json:"created_at" example:"2024-01-22 17:03:50.283466+00"`
 }
 
+/*
+**
+Create board
+**
+*/
 type CreateBoardRequest struct {
 	Title       string  `json:"title" example:"My title"`
 	Description *string `json:"description" example:"My description"`
@@ -23,6 +28,16 @@ type CreateBoardResponse struct {
 	Message string `json:"message"`
 }
 
+// Create new bord in database
+func CreateNewBoard(unique_id string, team_id string, title string) error {
+	return queries.NewBoard(unique_id, team_id, title)
+}
+
+/*
+**
+Get board
+**
+*/
 // Get board with uuid from database and return as Board struct
 func GetBoardByUID(id string) (Board, error) {
 	var board Board
@@ -37,7 +52,3 @@ func GetBoardByUID(id string) (Board, error) {
 	return board, nil
 }
 
-// Create new bord in database
-func CreateNewBoard(unique_id string, team_id string, title string) error {
-	return queries.NewBoard(unique_id, team_id, title)
-}

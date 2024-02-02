@@ -10,6 +10,11 @@ type Team struct {
 	Created_at   string  `json:"created_at" example:"2024-01-22 17:03:50.283466+00"`
 }
 
+/*
+**
+Create team
+**
+*/
 type CreateTeamRequest struct {
 	Name         string `json:"name" example:"My team"`
 	Workspace_id string `json:"workspace_id" example:"w-1706453613063fa2eb4"`

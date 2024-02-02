@@ -15,6 +15,11 @@ type User struct {
 	Created_at string  `json:"created_at" example:"2024-01-22 17:03:50.283466+00"`
 }
 
+/*
+**
+Register user
+**
+*/
 type RegisterRequest struct {
 	Email    string `json:"email" example:"email@email.com"`
 	Password string `json:"password" example:"Password123&"`
@@ -25,6 +30,16 @@ type RegisterResponse struct {
 	Message string `json:"message"`
 }
 
+// Create new user in database
+func CreateNewUser(unique_id string, email string, password string) error {
+	return queries.NewUser(unique_id, email, password)
+}
+
+/*
+**
+Login user
+**
+*/
 type LoginRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
@@ -40,6 +55,22 @@ type LoginItems struct {
 	Password string
 }
 
+func GetUserCredentials(email string) (LoginItems, error) {
+	var login LoginItems
+	// Get user from databse
+	row := queries.GetUserCredentials(email)
+	err := row.Scan(&login.Id, &login.Password)
+	if err != nil {
+		return LoginItems{}, err
+	}
+	return login, nil
+}
+
+/*
+**
+Get user
+**
+*/
 // Get user with unique id
 func GetUserByID(id string) (User, error) {
 	var user User
@@ -62,18 +93,4 @@ func GetUserByID(id string) (User, error) {
 	return user, nil
 }
 
-// Create new user in database
-func CreateNewUser(unique_id string, email string, password string) error {
-	return queries.NewUser(unique_id, email, password)
-}
 
-func GetUserCredentials(email string) (LoginItems, error) {
-	var login LoginItems
-	// Get user from databse
-	row := queries.GetUserCredentials(email)
-	err := row.Scan(&login.Id, &login.Password)
-	if err != nil {
-		return LoginItems{}, err
-	}
-	return login, nil
-}
