@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/bodatomas/gopi/api/v1/models"
-	"github.com/bodatomas/gopi/config"
-	"github.com/bodatomas/gopi/utils"
+	"github.com/dvandyy/gopi/api/v1/models"
+	"github.com/dvandyy/gopi/config"
+	"github.com/dvandyy/gopi/utils"
 	"github.com/gofiber/fiber/v2"
 )
 

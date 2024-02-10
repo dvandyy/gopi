@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/bodatomas/gopi/api/v1/models"
+	"github.com/dvandyy/gopi/api/v1/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 )

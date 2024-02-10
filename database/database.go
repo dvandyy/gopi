@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/bodatomas/gopi/config"
+	"github.com/dvandyy/gopi/config"
 	_ "github.com/lib/pq"
 )
 

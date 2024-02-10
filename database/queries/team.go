@@ -1,7 +1,7 @@
 package queries
 
 import (
-	"github.com/bodatomas/gopi/database"
+	"github.com/dvandyy/gopi/database"
 )
 
 /*

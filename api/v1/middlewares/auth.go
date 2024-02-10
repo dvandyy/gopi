@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"github.com/bodatomas/gopi/api/v1/models"
-	"github.com/bodatomas/gopi/config"
+	"github.com/dvandyy/gopi/api/v1/models"
+	"github.com/dvandyy/gopi/config"
 	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 )

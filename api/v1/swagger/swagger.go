@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/swagger"
 
-	_ "github.com/bodatomas/gopi/api/v1/docs"
+	_ "github.com/dvandyy/gopi/api/v1/docs"
 )
 
 // Make custom config here in the future

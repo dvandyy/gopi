@@ -1,4 +1,4 @@
-module github.com/bodatomas/gopi
+module github.com/dvandyy/gopi
 
 go 1.21
 

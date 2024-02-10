@@ -3,9 +3,9 @@ package server
 import (
 	"log"
 
-	"github.com/bodatomas/gopi/api/v1/handlers"
-	"github.com/bodatomas/gopi/api/v1/middlewares"
-	"github.com/bodatomas/gopi/api/v1/swagger"
+	"github.com/dvandyy/gopi/api/v1/handlers"
+	"github.com/dvandyy/gopi/api/v1/middlewares"
+	"github.com/dvandyy/gopi/api/v1/swagger"
 )
 
 func (s *Server) SetupGetRequests(logger *log.Logger) {

@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/bodatomas/gopi/config"
+	"github.com/dvandyy/gopi/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"

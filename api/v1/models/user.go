@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/bodatomas/gopi/database/queries"
+	"github.com/dvandyy/gopi/database/queries"
 )
 
 type User struct {

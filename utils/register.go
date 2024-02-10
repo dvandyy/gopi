@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/bodatomas/gopi/api/v1/models"
+	"github.com/dvandyy/gopi/api/v1/models"
 	"github.com/gofiber/fiber/v2"
 )
 

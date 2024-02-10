@@ -3,7 +3,7 @@ package queries
 import (
 	"database/sql"
 
-	"github.com/bodatomas/gopi/database"
+	"github.com/dvandyy/gopi/database"
 )
 
 /*

@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/bodatomas/gopi/api/v1/server"
-	"github.com/bodatomas/gopi/config"
-	"github.com/bodatomas/gopi/database"
+	"github.com/dvandyy/gopi/api/v1/server"
+	"github.com/dvandyy/gopi/config"
+	"github.com/dvandyy/gopi/database"
 )
 
 // @title Gopi API

@@ -1,6 +1,6 @@
 package models
 
-import "github.com/bodatomas/gopi/database/queries"
+import "github.com/dvandyy/gopi/database/queries"
 
 type Team struct {
 	ID           uint    `json:"id" example:"1"`
