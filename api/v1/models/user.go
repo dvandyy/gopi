@@ -71,26 +71,29 @@ func GetUserCredentials(email string) (LoginItems, error) {
 Get user
 **
 */
+type UserResponse struct {
+	Unique_id  string  `json:"unique_id" example:"u-1706453613063fa2eb4"`
+	First_Name *string `json:"first_name" example:"FirstName"`
+	Last_Name  *string `json:"last_name" example:"LastName"`
+	Email      string  `json:"email" example:"email@email.com"`
+	Role       *string `json:"role" example:"Tester"`
+}
+
 // Get user with unique id
-func GetUserByID(id string) (User, error) {
-	var user User
+func GetUserByID(id string) (UserResponse, error) {
+	var user UserResponse
 
 	// Get user from databse
 	row := queries.GetUserByID(id)
 	err := row.Scan(
-		&user.ID,
 		&user.Unique_id,
 		&user.First_Name,
 		&user.Last_Name,
 		&user.Email,
-		&user.Password,
-		&user.Role,
-		&user.Created_at)
+		&user.Role)
 	if err != nil {
-		return User{}, err
+		return UserResponse{}, err
 	}
 
 	return user, nil
 }
-
-

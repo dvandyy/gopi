@@ -12,7 +12,7 @@ Get user with unique ID.
 **
 */
 const GetUserByIDSQL = `
-SELECT * FROM users WHERE unique_id = $1;
+SELECT unique_id, first_name, last_name, email, role FROM users WHERE unique_id = $1;
 `
 
 func GetUserByID(id string) *sql.Row {
