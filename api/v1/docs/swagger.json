@@ -306,9 +306,69 @@
                     }
                 }
             }
+        },
+        "/workspace/user/add": {
+            "post": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
+                "description": "Add a new user to workspace.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Workspaces"
+                ],
+                "summary": "Add user to workspace",
+                "parameters": [
+                    {
+                        "description": "Add new user to workspace with user_id and workspace_id",
+                        "name": "AddUserToWorkspaceRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AddUserToWorkspaceRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AddUserToWorkspaceResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "models.AddUserToWorkspaceRequest": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "string",
+                    "example": "u-1706453613063fa2eb4"
+                },
+                "workspace_id": {
+                    "type": "string",
+                    "example": "w-1706453613063fa2eb4"
+                }
+            }
+        },
+        "models.AddUserToWorkspaceResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.Board": {
             "type": "object",
             "properties": {

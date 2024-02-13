@@ -1,5 +1,21 @@
 basePath: /api/v1/
 definitions:
+  models.AddUserToWorkspaceRequest:
+    properties:
+      user_id:
+        example: u-1706453613063fa2eb4
+        type: string
+      workspace_id:
+        example: w-1706453613063fa2eb4
+        type: string
+    type: object
+  models.AddUserToWorkspaceResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.Board:
     properties:
       created_at:
@@ -343,6 +359,28 @@ paths:
       security:
       - JWT_TOKEN: []
       summary: Get workspaces for user
+      tags:
+      - Workspaces
+  /workspace/user/add:
+    post:
+      description: Add a new user to workspace.
+      parameters:
+      - description: Add new user to workspace with user_id and workspace_id
+        in: body
+        name: AddUserToWorkspaceRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddUserToWorkspaceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AddUserToWorkspaceResponse'
+      security:
+      - JWT_TOKEN: []
+      summary: Add user to workspace
       tags:
       - Workspaces
 securityDefinitions:
