@@ -23,7 +23,7 @@ func (s *Server) SetupGetRequests(logger *log.Logger) {
 	api.Get("/users/:uid", middlewares.AuthMiddleware(), handlers.HandleGetUserByID)
 
 	// Workspace
-	api.Get("/workspace/user", middlewares.AuthMiddleware(), handlers.HandleGetUserWorkspaces)
+	api.Get("/workspaces/user", middlewares.AuthMiddleware(), handlers.HandleGetUserWorkspaces)
 
 	// Board
 	api.Get("/boards/:uid", middlewares.AuthMiddleware(), handlers.HandleGetBoardByID)
@@ -38,10 +38,11 @@ func (s *Server) SetupPostRequests(logger *log.Logger) {
 	api.Post("/users/login", handlers.HandleLoginUser)
 
 	// Workspace
-	api.Post("/workspace/new", middlewares.AuthMiddleware(), handlers.HandleCreateWorkspace)
+	api.Post("/workspaces/new", middlewares.AuthMiddleware(), handlers.HandleCreateWorkspace)
+	api.Post("/workspaces/user/add", middlewares.AuthMiddleware(), handlers.HandleAddUserToWorkspace)
 
 	// Team
-	api.Post("/team/new", middlewares.AuthMiddleware(), handlers.HandleCreateTeam)
+	api.Post("/teams/new", middlewares.AuthMiddleware(), handlers.HandleCreateTeam)
 
 	// Board
 	api.Post("/boards/new", middlewares.AuthMiddleware(), handlers.HandleCreateBoard)

@@ -58,3 +58,24 @@ func GetWorkspacesForUser(unique_id string) *sql.Rows {
 	}
 	return nil
 }
+
+/*
+**
+Add user to workspace.
+**
+*/
+const AddUserToWorkspaceSQL = `
+INSERT INTO workspace_members (workspace_id, user_id) VALUES ($1, $2)
+`
+
+func AddUserToWorkspace(user_id string, workspace_id string) error {
+	db := database.GetDatabase()
+	if db != nil {
+		// Add owner to that workspace
+		_, errMember := db.Conn.Exec(AddUserToWorkspaceSQL, workspace_id, user_id)
+		if errMember != nil {
+			return errMember
+		}
+	}
+	return nil
+}

@@ -61,3 +61,23 @@ func GetUserWorkspaces(user_id string) ([]WorkspaceResponse, error) {
 
 	return workspaces, nil
 }
+
+/*
+**
+Add User to workspace
+**
+*/
+type AddUserToWorkspaceRequest struct {
+	User_id      string `json:"user_id" example:"u-1706453613063fa2eb4"`
+	Workspace_id string `json:"workspace_id" example:"w-1706453613063fa2eb4"`
+}
+
+type AddUserToWorkspaceResponse struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+}
+
+// Create new workspace in database
+func AddUserToWorkspace(user_id string, workspace_id string) error {
+	return queries.AddUserToWorkspace(user_id, workspace_id)
+}

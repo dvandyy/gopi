@@ -13,7 +13,7 @@ import (
 // @Param		 CreateTeamRequest body models.CreateTeamRequest true "Create new team with workspace_id and name"
 // @Produce      json
 // @Success      200 {object}  models.CreateTeamResponse
-// @Router       /team/new [Post]
+// @Router       /teams/new [Post]
 func HandleCreateTeam(c *fiber.Ctx) error {
 	team := new(models.CreateTeamRequest)
 
