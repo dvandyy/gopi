@@ -237,7 +237,7 @@ paths:
       summary: Create new board
       tags:
       - Boards
-  /team/new:
+  /teams/new:
     post:
       description: Create a new team in database.
       parameters:
@@ -324,7 +324,7 @@ paths:
       summary: Register new user
       tags:
       - Users
-  /workspace/new:
+  /workspaces/new:
     post:
       description: Create a new workspace in database.
       parameters:
@@ -346,7 +346,7 @@ paths:
       summary: Create new workspace
       tags:
       - Workspaces
-  /workspace/user:
+  /workspaces/user:
     get:
       description: Return all workspaces for certain user
       produces:
@@ -361,7 +361,7 @@ paths:
       summary: Get workspaces for user
       tags:
       - Workspaces
-  /workspace/user/add:
+  /workspaces/user/add:
     post:
       description: Add a new user to workspace.
       parameters:

@@ -108,7 +108,7 @@
                 }
             }
         },
-        "/team/new": {
+        "/teams/new": {
             "post": {
                 "security": [
                     {
@@ -246,7 +246,7 @@
                 }
             }
         },
-        "/workspace/new": {
+        "/workspaces/new": {
             "post": {
                 "security": [
                     {
@@ -282,7 +282,7 @@
                 }
             }
         },
-        "/workspace/user": {
+        "/workspaces/user": {
             "get": {
                 "security": [
                     {
@@ -307,7 +307,7 @@
                 }
             }
         },
-        "/workspace/user/add": {
+        "/workspaces/user/add": {
             "post": {
                 "security": [
                     {

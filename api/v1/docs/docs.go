@@ -114,7 +114,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/team/new": {
+        "/teams/new": {
             "post": {
                 "security": [
                     {
@@ -252,7 +252,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/workspace/new": {
+        "/workspaces/new": {
             "post": {
                 "security": [
                     {
@@ -288,7 +288,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/workspace/user": {
+        "/workspaces/user": {
             "get": {
                 "security": [
                     {
@@ -313,7 +313,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/workspace/user/add": {
+        "/workspaces/user/add": {
             "post": {
                 "security": [
                     {
