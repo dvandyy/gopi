@@ -1,6 +1,10 @@
-package utils
+package tests
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/dvandyy/gopi/utils"
+)
 
 type EmailTest struct {
 	current string
@@ -17,7 +21,7 @@ func TestCheckValidEmail(t *testing.T) {
 
 	for _, testCase := range emails {
 
-		result := CheckValidEmail(testCase.current)
+		result := utils.CheckValidEmail(testCase.current)
 
 		if result != nil {
 			if testCase.valid != false {

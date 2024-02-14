@@ -1,6 +1,10 @@
-package utils
+package tests
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/dvandyy/gopi/utils"
+)
 
 type PasswordTest struct {
 	current string
@@ -18,7 +22,7 @@ func TestCheckStrongPassword(t *testing.T) {
 
 	for _, testCase := range passwords {
 
-		result := CheckStrongPassword(testCase.current)
+		result := utils.CheckStrongPassword(testCase.current)
 
 		if result != nil {
 			if testCase.valid != false {
