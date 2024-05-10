@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"time"
 
 	"github.com/dvandyy/gopi/api/v1/models"
 	"github.com/dvandyy/gopi/config"
@@ -119,9 +120,17 @@ func HandleLoginUser(c *fiber.Ctx) error {
 		})
 	}
 
+	// Send http only cookie
+	jwtCookie := fiber.Cookie{
+		Name: "jwt",
+		Value: token,
+		Expires: time.Now().Add(time.Hour * 24 * 30),
+		HTTPOnly: true,
+	}
+	c.Cookie(&jwtCookie)
+
 	// Return a success message
 	return c.JSON(models.LoginResponse{
 		Message: "User successfully logged in",
-		Token:   token,
 	})
 }

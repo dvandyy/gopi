@@ -25,7 +25,7 @@ type CreateTeamResponse struct {
 	Message string `json:"message"`
 }
 
-// Create new bord in database
+// Create new team in database
 func CreateNewTeam(unique_id string, workspace_id string, name string) error {
 	return queries.NewTeam(unique_id, workspace_id, name)
 }
