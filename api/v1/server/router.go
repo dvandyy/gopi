@@ -25,6 +25,9 @@ func (s *Server) SetupGetRequests(logger *log.Logger) {
 	// Workspace
 	api.Get("/workspaces/user", middlewares.AuthMiddleware(), handlers.HandleGetUserWorkspaces)
 
+	// Team
+	api.Get("/teams/user/:wid", middlewares.AuthMiddleware(), handlers.HandleGetUserTeamsInWorkspace)
+
 	// Board
 	api.Get("/boards/:uid", middlewares.AuthMiddleware(), handlers.HandleGetBoardByID)
 
@@ -43,6 +46,7 @@ func (s *Server) SetupPostRequests(logger *log.Logger) {
 
 	// Team
 	api.Post("/teams/new", middlewares.AuthMiddleware(), handlers.HandleCreateTeam)
+	api.Post("/teams/user/add", middlewares.AuthMiddleware(), handlers.HandleAddUserToTeam)
 
 	// Board
 	api.Post("/boards/new", middlewares.AuthMiddleware(), handlers.HandleCreateBoard)
