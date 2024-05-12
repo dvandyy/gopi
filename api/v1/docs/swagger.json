@@ -144,6 +144,76 @@
                 }
             }
         },
+        "/teams/user/add": {
+            "post": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
+                "description": "Add a new user to team.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Add user to team",
+                "parameters": [
+                    {
+                        "description": "Add new user to team with user_id and workspace_id",
+                        "name": "AddUserToTeamRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AddUserToTeamRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.AddUserToTeamResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/teams/user/{wid}": {
+            "get": {
+                "security": [
+                    {
+                        "JWT_TOKEN": []
+                    }
+                ],
+                "description": "Return all teams for certain user in workspace",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Get teams for user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Workspace unique ID",
+                        "name": "wid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserTeamsResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users/login": {
             "post": {
                 "description": "Authenticate user with jwt token",
@@ -345,6 +415,30 @@
         }
     },
     "definitions": {
+        "models.AddUserToTeamRequest": {
+            "type": "object",
+            "properties": {
+                "team_id": {
+                    "type": "string",
+                    "example": "t-1706453613063fa2eb4"
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "u-1706453613063fa2eb4"
+                }
+            }
+        },
+        "models.AddUserToTeamResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.AddUserToWorkspaceRequest": {
             "type": "object",
             "properties": {
@@ -527,6 +621,19 @@
                 }
             }
         },
+        "models.TeamResponse": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Team name"
+                },
+                "unique_id": {
+                    "type": "string",
+                    "example": "t-1706453613063fa2eb4"
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -561,6 +668,20 @@
                 "unique_id": {
                     "type": "string",
                     "example": "u-1706453613063fa2eb4"
+                }
+            }
+        },
+        "models.UserTeamsResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "integer"
+                },
+                "teams": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TeamResponse"
+                    }
                 }
             }
         },

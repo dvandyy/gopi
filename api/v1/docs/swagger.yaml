@@ -1,5 +1,21 @@
 basePath: /api/v1/
 definitions:
+  models.AddUserToTeamRequest:
+    properties:
+      team_id:
+        example: t-1706453613063fa2eb4
+        type: string
+      user_id:
+        example: u-1706453613063fa2eb4
+        type: string
+    type: object
+  models.AddUserToTeamResponse:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
   models.AddUserToWorkspaceRequest:
     properties:
       user_id:
@@ -122,6 +138,15 @@ definitions:
       status:
         type: integer
     type: object
+  models.TeamResponse:
+    properties:
+      name:
+        example: Team name
+        type: string
+      unique_id:
+        example: t-1706453613063fa2eb4
+        type: string
+    type: object
   models.User:
     properties:
       created_at:
@@ -148,6 +173,15 @@ definitions:
       unique_id:
         example: u-1706453613063fa2eb4
         type: string
+    type: object
+  models.UserTeamsResponse:
+    properties:
+      status:
+        type: integer
+      teams:
+        items:
+          $ref: '#/definitions/models.TeamResponse'
+        type: array
     type: object
   models.UserWorkspacesResponse:
     properties:
@@ -255,6 +289,49 @@ paths:
       security:
       - JWT_TOKEN: []
       summary: Create new team
+      tags:
+      - Teams
+  /teams/user/{wid}:
+    get:
+      description: Return all teams for certain user in workspace
+      parameters:
+      - description: Workspace unique ID
+        in: path
+        name: wid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserTeamsResponse'
+      security:
+      - JWT_TOKEN: []
+      summary: Get teams for user
+      tags:
+      - Teams
+  /teams/user/add:
+    post:
+      description: Add a new user to team.
+      parameters:
+      - description: Add new user to team with user_id and workspace_id
+        in: body
+        name: AddUserToTeamRequest
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddUserToTeamRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AddUserToTeamResponse'
+      security:
+      - JWT_TOKEN: []
+      summary: Add user to team
       tags:
       - Teams
   /users/{uid}:
