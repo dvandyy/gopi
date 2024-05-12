@@ -92,7 +92,7 @@ func HandleAddUserToWorkspace(c *fiber.Ctx) error {
 		})
 	}
 
-	// Store workspace in the database
+	// Add user to workspace in the database
 	db_err := models.AddUserToWorkspace(req.User_id, req.Workspace_id)
 	if db_err != nil {
 		return c.JSON(models.Error{

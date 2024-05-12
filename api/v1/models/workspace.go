@@ -77,7 +77,7 @@ type AddUserToWorkspaceResponse struct {
 	Message string `json:"message"`
 }
 
-// Create new workspace in database
+// Adding user to workspace in databse
 func AddUserToWorkspace(user_id string, workspace_id string) error {
 	return queries.AddUserToWorkspace(user_id, workspace_id)
 }
