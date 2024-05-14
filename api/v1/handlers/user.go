@@ -16,7 +16,7 @@ import (
 // @Security 	 JWT_TOKEN
 // @Produce      json
 // @Param 		 uid path string true "User unique ID"
-// @Success      200  {object}  models.User
+// @Success      200  {object}  models.UserResponse
 // @Router       /users/{uid} [get]
 func HandleGetUserByID(c *fiber.Ctx) error {
 	// Get id param from url

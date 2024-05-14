@@ -316,7 +316,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/models.UserResponse"
                         }
                     }
                 }
@@ -640,13 +640,9 @@ const docTemplate = `{
                 }
             }
         },
-        "models.User": {
+        "models.UserResponse": {
             "type": "object",
             "properties": {
-                "created_at": {
-                    "type": "string",
-                    "example": "2024-01-22 17:03:50.283466+00"
-                },
                 "email": {
                     "type": "string",
                     "example": "email@email.com"
@@ -655,17 +651,9 @@ const docTemplate = `{
                     "type": "string",
                     "example": "FirstName"
                 },
-                "id": {
-                    "type": "integer",
-                    "example": 1
-                },
                 "last_name": {
                     "type": "string",
                     "example": "LastName"
-                },
-                "password": {
-                    "type": "string",
-                    "example": "hash"
                 },
                 "role": {
                     "type": "string",

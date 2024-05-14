@@ -147,25 +147,16 @@ definitions:
         example: t-1706453613063fa2eb4
         type: string
     type: object
-  models.User:
+  models.UserResponse:
     properties:
-      created_at:
-        example: 2024-01-22 17:03:50.283466+00
-        type: string
       email:
         example: email@email.com
         type: string
       first_name:
         example: FirstName
         type: string
-      id:
-        example: 1
-        type: integer
       last_name:
         example: LastName
-        type: string
-      password:
-        example: hash
         type: string
       role:
         example: Tester
@@ -349,7 +340,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.User'
+            $ref: '#/definitions/models.UserResponse'
       security:
       - JWT_TOKEN: []
       summary: Get user with UUID
