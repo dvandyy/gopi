@@ -1,4 +1,4 @@
-FROM golang:alpine as development
+FROM golang:alpine AS development
 # Add a work directory
 WORKDIR /app
 # Cache and install dependencies

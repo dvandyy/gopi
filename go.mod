@@ -1,8 +1,6 @@
 module github.com/dvandyy/gopi
 
-go 1.22
-
-toolchain go1.21.6
+go 1.24
 
 require (
 	github.com/caarlos0/env/v8 v8.0.0
