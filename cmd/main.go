@@ -45,18 +45,18 @@ func main() {
 	go func() {
 		logger.Fatal(server.Start(port))
 	}()
-	logger.Println("Server is running!")
+	logger.Println("Server is running :)")
 
 	// Graceful shutdown
-	sigChan := make(chan os.Signal)
-	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	sig := <-sigChan
 	logger.Println("Received terminate, graceful shutdown", sig)
-	_ = server.Stop()
+	server.Stop()
 
 	// Cleanup
 	logger.Println("Running cleanup tasks...")
 	database.GetDatabase().Conn.Close()
 
-	logger.Println("Server was successful shutdown")
+	logger.Println("Server was successfully shutdown")
 }
